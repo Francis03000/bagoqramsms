@@ -1,0 +1,122 @@
+import fetch from "../modules/auth.js";
+$(document).ready(function () {
+  let loginAttempts = 0;
+  let countdownTimer = localStorage.getItem("countdownTimer");
+
+  function updateTimer(seconds) {
+    $("#countdown-timer").text(`Retry in ${seconds} seconds`);
+  }
+
+  function resetLoginForm() {
+    loginAttempts = 0;
+    localStorage.removeItem("countdownTimer");
+    $("#countdown-timer").text("");
+    $("#loginUser").prop("disabled", false);
+  }
+
+  function performLogin() {
+    if (loginAttempts >= 3) {
+      return;
+    }
+
+    const myCipher = fetch.cipher("BAMSMS");
+    const myDeCipher = fetch.decipher("BAMSMS");
+
+    let form = {
+      email: $("#email").val(),
+      password: myCipher($("#password").val()),
+      loginUser: "loginUser",
+    };
+
+    $.post({
+      url: "authentication/authCrud.php",
+      data: form,
+      success: function (data) {
+        var datas = JSON.parse(data);
+        if (datas.length > 0) {
+          if (datas[0].id > 1) {
+            Swal.fire({
+              icon: "success",
+              title: `Welcome Back ${
+                datas[0].fname + " " + datas[0].mname + " " + datas[0].lname
+              }`,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            setTimeout(() => {
+              window.location.href = "../views/employeeSchedule";
+            }, 1000);
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: `Welcome Back ${
+                datas[0].fname + " " + datas[0].mname + " " + datas[0].lname
+              }`,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            setTimeout(() => {
+              window.location.href = "../views/";
+            }, 1000);
+          }
+        } else {
+          loginAttempts++;
+
+          if (loginAttempts >= 3) {
+            $("#loginUser").prop("disabled", true);
+            countdownTimer = 30;
+            localStorage.setItem("countdownTimer", countdownTimer);
+
+            const timerInterval = setInterval(function () {
+              if (countdownTimer <= 0) {
+                clearInterval(timerInterval);
+                resetLoginForm();
+              } else {
+                updateTimer(countdownTimer);
+                countdownTimer--;
+                localStorage.setItem("countdownTimer", countdownTimer);
+              }
+            }, 1000);
+          }
+          Swal.fire({
+            icon: "warning",
+            title: `Incorrect email or password `,
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+      },
+    });
+  }
+
+  $("#loginUser").click(function () {
+    if ($("#email").val() !== "" && $("#password").val() !== "") {
+      performLogin();
+    }
+  });
+
+  $("#email, #password").keypress(function (event) {
+    if (
+      event.which == 13 &&
+      $("#email").val() !== "" &&
+      $("#password").val() !== ""
+    ) {
+      // Enter key is pressed and fields are not empty
+      performLogin();
+    }
+  });
+
+  if (countdownTimer > 0) {
+    $("#loginUser").prop("disabled", true);
+    const timerInterval = setInterval(function () {
+      if (countdownTimer <= 0) {
+        clearInterval(timerInterval);
+        resetLoginForm();
+      } else {
+        updateTimer(countdownTimer);
+        countdownTimer--;
+        localStorage.setItem("countdownTimer", countdownTimer);
+      }
+    }, 1000);
+  }
+});

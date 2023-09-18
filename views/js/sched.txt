@@ -1,0 +1,355 @@
+$(document).ready(function () {
+  $("body").on("click", "#edit", async (e) =>
+    update($(e.currentTarget).data("id"))
+  );
+  $("body").on("click", "#delete", (e) =>
+    deletes($(e.currentTarget).data("id"))
+  );
+  $("body").on("click", "#view", (e) => view($(e.currentTarget).data("id")));
+
+  $("#filesearch").keyup(function () {
+    var value = $("#filesearch").val().toLowerCase();
+    $("#bamsmsTable tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+
+  $("#teacher_id").change(function () {
+    $("#session_id").val(null);
+    $("#sched_time").hide();
+  });
+  $("#sample_day").change(function () {
+    $("#session_id").val(null);
+    $("#sched_time").hide();
+  });
+  $("#yearlevels_id").change(function () {
+    $("#session_id").val(null);
+    $("#sched_time").hide();
+  });
+  $("#rooms_id").change(function () {
+    $("#session_id").val(null);
+    $("#sched_time").hide();
+  });
+
+  $("#sched_time").hide();
+  let availTimeams = [];
+  let availSched = [];
+  $("#session_id").change(function () {
+    $("#sched_time").show();
+    let ops = $("#sample_time_id").empty();
+    $.get({
+      url: "../controllers/time/timeCrud.php",
+      data: { getData: "getData" },
+      contentType: "application/json",
+      success: function (data) {
+        availTimeams = JSON.parse(data);
+      },
+    });
+
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: {
+        getSelectedTime: "getSelectedTime",
+        teacher_id: $("#teacher_id").val(),
+        session_id: $("#session_id").val(),
+      },
+      contentType: "application/json",
+      success: function (datas) {
+        availSched = JSON.parse(datas);
+      },
+    });
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: {
+        getSelectedDay: "getSelectedDay",
+        sample_day: $("#sample_day").val(),
+      },
+      contentType: "application/json",
+      success: function (datas) {
+        availDay = JSON.parse(datas);
+      },
+    });
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: {
+        getSelectedDay: "getSelectedRoom",
+        rooms_id: $("#rooms_id").val(),
+      },
+      contentType: "application/json",
+      success: function (datas) {
+        availRoom = JSON.parse(datas);
+      },
+    });
+
+    setTimeout(() => {
+      hello();
+    }, 3000);
+  });
+
+  function hello() {
+    let sample_day = $("#sample_day").val();
+    let yearlevels_id = $("#yearlevels_id").val();
+    let rooms_id = $("#rooms_id").val();
+    // console.log(availSched);
+    let ops = $("#sample_time_id").empty();
+
+    if (availSched.length != 0) {
+      for (let index = 0; index < availSched.length; index++) {
+        for (let index1 = 0; index1 < availTimeams.length; index1++) {
+          if (
+            (availSched[index].sample_time_id == availTimeams[index1].id &&
+              availSched[index].sample_day == sample_day &&
+              availSched[index].yearlevels_id == yearlevels_id) ||
+            (availSched[index].sample_time_id == availTimeams[index1].id &&
+              availSched[index].sample_day == sample_day)
+          ) {
+            {
+              availTimeams.splice(index1, 1);
+            }
+          }
+        }
+      }
+    } else if (availDay.length != 0) {
+      for (let index = 0; index < availDay.length; index++) {
+        for (let index1 = 0; index1 < availTimeams.length; index1++) {
+          if (
+            (availDay[index].sample_time_id == availTimeams[index1].id &&
+              availDay[index].sample_day == sample_day &&
+              availDay[index].yearlevels_id == yearlevels_id) ||
+            (availDay[index].sample_time_id == availTimeams[index1].id &&
+              availDay[index].sample_day == sample_day &&
+              availDay[index].rooms_id == rooms_id)
+          ) {
+            {
+              availTimeams.splice(index1, 1);
+            }
+          }
+        }
+      }
+    }
+
+    availTimeams.forEach((times) => {
+      if (parseInt($("#session_id").val()) === 0) {
+        if (times.sched_index >= 0 && times.sched_index <= 5) {
+          if (times.sched_index != 2 && times.sched_index != 5) {
+            ops.append(
+              "<option value=" +
+                times.id +
+                ">" +
+                times.time_start +
+                "-" +
+                times.time_end +
+                "</option>"
+            );
+          }
+        }
+      } else if (parseInt($("#session_id").val()) === 1) {
+        if (times.sched_index >= 6 && times.sched_index <= 10) {
+          if (times.sched_index != 8) {
+            ops.append(
+              "<option value=" +
+                times.id +
+                ">" +
+                times.time_start +
+                "-" +
+                times.time_end +
+                "</option>"
+            );
+          }
+        }
+      }
+    });
+  }
+
+  $("#department_id").change(function () {
+    $("#yearlevels_id").empty();
+    let opts = $("#yearlevels_id");
+    $.get({
+      url: "../controllers/yearlevels/yearlevelsCrud.php",
+      data: { getDatas: "getDatas", department_id: $("#department_id").val() },
+      contentType: "application/json",
+      success: function (data) {
+        let newdatadp = JSON.parse(data);
+        newdatadp.forEach((yearlevel) => {
+          opts.append(
+            "<option value=" +
+              yearlevel.id +
+              ">" +
+              yearlevel.yearlevel_name +
+              " " +
+              yearlevel.section_name +
+              "</option>"
+          );
+        });
+      },
+    });
+  });
+
+  let sampleArray = [];
+  getAllData();
+  function getAllData() {
+    sampleArray = [];
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: { getData: "getData" },
+      success: function (data) {
+        let newData = JSON.parse(data);
+        let table = $("#bamsmsTable");
+        newData.forEach((schedules, i) => {
+          sampleArray.push(schedules);
+          let tableRow = $("<tr>", { id: newData.id });
+          $("<td>", { class: "text-wrap", html: i + 1 }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.teacher_id,
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.yearlevels_id,
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.rooms_id,
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.subject_id,
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.sample_time_id,
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.sample_day,
+          }).appendTo(tableRow);
+
+          // buttons action
+          let tableData = $("<td>", { class: "text-wrap" });
+          $("<button>", {
+            class: "btn btn-success mx-1 fa fa-eye ",
+            "data-id": i,
+            id: "view",
+            html: "",
+          }).appendTo(tableData);
+          $("<button>", {
+            class: "btn btn-warning mx-1 far fa-edit ",
+            "data-id": i,
+            id: "edit",
+            html: "",
+          }).appendTo(tableData);
+          $("<button>", {
+            class: "btn btn-danger mx-1 far fa-trash-alt ",
+            "data-id": schedules.id,
+            id: "delete",
+            html: "",
+          }).appendTo(tableData);
+          tableData.appendTo(tableRow);
+          table.append(tableRow);
+        });
+      },
+    });
+
+    $("#yearlevels_id").empty();
+
+    $("#department_id").empty();
+    let opts = $("#department_id");
+    $.get({
+      url: "../controllers/departments/departmentsCrud.php",
+      data: { getData: "getData" },
+      contentType: "application/json",
+      success: function (data) {
+        let newdatadp = JSON.parse(data);
+        newdatadp.forEach((department) => {
+          opts.append(
+            "<option value=" +
+              department.id +
+              ">" +
+              department.department_name +
+              "</option>"
+          );
+        });
+      },
+    });
+  }
+
+  $("#add-new").click(function () {
+    $("#modalMainForm").trigger("reset");
+    $("#modalMainLabel").html("Add Schedule");
+    $("#modalMain").modal("show");
+    $("#method").attr("name", "addNew");
+  });
+
+  $("#btn-mul").click(function () {
+    let formData = $("#modalMainForm").serializeArray();
+    $.post({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: formData,
+      success: function (data) {
+        if (data) {
+          $("#modalMainForm").trigger("reset");
+          $("#modalMain").modal("hide");
+          $("#bamsmsTable").empty();
+          // sampleArray.length = 0;
+          getAllData();
+        }
+      },
+    });
+  });
+
+  function update(index) {
+    $("#modalMain").modal("show");
+    $("#modalMainLabel").html("Update Schedule");
+    $("#method").attr("name", "update");
+    let models = sampleArray[index];
+    Object.keys(models).map((key) => {
+      $(`[name='${key}']`).val(models[key]).attr("disabled", false);
+    });
+    $("#btn-mul").show();
+    $("#btn-mul").attr("id", "updateData");
+    $("#updateData").attr("name", "update");
+  }
+
+  $("#updateData").click(function () {
+    let modalMainForm = $("#modalMainForm").serializeArray();
+    $.post({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: modalMainForm,
+      success: function (data) {
+        if (data) {
+          $("#modalMainForm").trigger("reset");
+          $("#modalMain").modal("hide");
+          $("#bamsmsTable").empty();
+          // sampleArray.length = 0;
+          getAllData();
+        }
+      },
+    });
+  });
+
+  function deletes(id) {
+    $.post({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: { id: id, delete: "delete" },
+      success: function (data) {
+        if (data) {
+          $("#modalMainForm").trigger("reset");
+          $("#modalMain").modal("hide");
+          $("#bamsmsTable").empty();
+          // sampleArray.length = 0;
+          getAllData();
+        }
+      },
+    });
+  }
+
+  function view(index) {
+    $("#modalMain").modal("show");
+    $("#modalMainLabel").html("View Schedule");
+    let models = sampleArray[index];
+    Object.keys(models).map((key) => {
+      $(`[name='${key}']`).val(models[key]).attr("disabled", true);
+    });
+    $("#btn-mul").hide();
+  }
+});

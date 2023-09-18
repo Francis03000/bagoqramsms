@@ -1,0 +1,681 @@
+$(document).ready(function () {
+  $("body").on("click", "#view", (e) => view($(e.currentTarget).data("id")));
+
+  let sampleArray = [];
+  let sampleArray1 = [];
+  let sampleArray2 = [];
+  let sampleArray3 = [];
+  let sampleArray4 = [];
+  $("#teacher_id").change(function () {
+    if (parseInt($("#teacher_id").val) !== 0) {
+      $("#sample_day").val(null);
+      $("#department_id").removeAttr("disabled");
+    }
+  });
+
+  $("#department_id").change(function () {
+    if (parseInt($("#department_id").val) !== 0) {
+      $("#sample_day").val(null);
+      $("#session_id").removeAttr("disabled");
+    }
+  });
+
+  $("#yearlevels_id").change(function () {
+    if (parseInt($("#yearlevels_id").val) !== 0) {
+      $("#sample_day").val(null);
+      $("#sample_day").removeAttr("disabled");
+    }
+  });
+
+  $("#subject_id").change(function () {
+    setTimeout(() => {
+      hello();
+    }, 2000);
+  });
+
+  $("#session_id").change(function () {
+    $("#sample_day").val(null);
+    if (parseInt($("#session_id").val) !== 0) {
+      sampleArray2 = [];
+      $("#yearlevels_id").removeAttr("disabled");
+      $("#yearlevels_id").empty();
+      let opts2 = $("#yearlevels_id");
+      opts2.append("<option value='0'>Choose YearLevel and Section</option>");
+
+      $.get({
+        url: "../controllers/yearlevels/yearlevelsCrud.php",
+        data: {
+          getDatas: "getData",
+          department_id: $("#department_id").val(),
+          session_id: $("#session_id").val(),
+        },
+        contentType: "application/json",
+        success: function (data) {
+          let newdatadp = JSON.parse(data);
+          newdatadp.forEach((yearlevel) => {
+            sampleArray2.push(yearlevel);
+            opts2.append(
+              "<option value=" +
+                yearlevel.id +
+                ">" +
+                yearlevel.yearlevel_name +
+                " " +
+                yearlevel.section_name +
+                "</option>"
+            );
+          });
+        },
+      });
+    }
+  });
+  let availTimeams = [];
+  let availSched = [];
+  let availsc = [];
+  $("#sample_day").change(function () {
+    $("#subject_id").removeAttr("disabled");
+    $("#sample_time_id").removeAttr("disabled");
+    if (parseInt($("#sample_day").val) !== 0) {
+      $("#subject_id").removeAttr("disabled");
+      $department_id = parseInt($("#department_id").val());
+      $("#subject_id").empty();
+      let sample_day = parseInt($("#sample_day").val());
+      let opts3 = $("#subject_id");
+      opts3.append("<option value='0'>Choose Subject</option>");
+      $.get({
+        url: "../controllers/subjects/subjectsCrud.php",
+        data: { getDataSched: "getDataSched", department_id: $department_id },
+        contentType: "application/json",
+        success: function (data) {
+          let newdatadp = JSON.parse(data);
+          for (let index = 0; index < sampleArray.length; index++) {
+            for (let index1 = 0; index1 < newdatadp.length; index1++) {
+              if (
+                parseInt($("#department_id").val()) ===
+                parseInt(newdatadp[index1].department_id)
+              ) {
+                if (
+                  newdatadp[index1].id === sampleArray[index].subject_id &&
+                  parseInt($("#yearlevels_id").val()) ===
+                    parseInt(sampleArray[index].yearlevels_id) &&
+                  sample_day === parseInt(sampleArray[index].sample_day)
+                ) {
+                  newdatadp.splice(index1, 1);
+                }
+              }
+            }
+          }
+          newdatadp.forEach((subject) => {
+            opts3.append(
+              "<option value=" +
+                subject.id +
+                ">" +
+                subject.subject_name +
+                "</option>"
+            );
+          });
+        },
+      });
+    }
+    let ops = $("#sample_time_id").empty();
+    $.get({
+      url: "../controllers/time/timeCrud.php",
+      data: { getData: "getData" },
+      contentType: "application/json",
+      success: function (data) {
+        availTimeams = JSON.parse(data);
+      },
+    });
+
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: {
+        getSelectedTime: "getSelectedTime",
+        teacher_id: $("#teacher_id").val(),
+        session_id: $("#session_id").val(),
+      },
+      contentType: "application/json",
+      success: function (datas) {
+        availSched = JSON.parse(datas);
+      },
+    });
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: {
+        getSelectedDay: "getSelectedDay",
+        sample_day: $("#sample_day").val(),
+      },
+      contentType: "application/json",
+      success: function (datas) {
+        availDay = JSON.parse(datas);
+      },
+    });
+  });
+
+  function hello() {
+    let sample_day = $("#sample_day").val();
+    let yearlevels_id = $("#yearlevels_id").val();
+    let rooms_id = $("#rooms_id").val();
+    let ops = $("#sample_time_id").empty();
+
+    if (availSched.length != 0) {
+      for (let index = 0; index < availSched.length; index++) {
+        for (let index1 = 0; index1 < availTimeams.length; index1++) {
+          if (
+            (availSched[index].sample_time_id == availTimeams[index1].id &&
+              availSched[index].yearlevels_id == yearlevels_id &&
+              availSched[index].sample_day == sample_day) ||
+            (availSched[index].sample_time_id == availTimeams[index1].id &&
+              availSched[index].yearlevels_id != yearlevels_id &&
+              availSched[index].sample_day == sample_day)
+          ) {
+            {
+              availTimeams.splice(index1, 1);
+            }
+          }
+        }
+      }
+    } else {
+      $.get({
+        url: "../controllers/schedules/schedulesCrud.php",
+        data: {
+          checkYearLevel: "checkYearLevel",
+          yearlevels_id: yearlevels_id,
+        },
+        contentType: "application/json",
+        success: function (datas) {
+          availsc = JSON.parse(datas);
+        },
+      });
+    }
+
+    for (let index = 0; index < availsc.length; index++) {
+      for (let index1 = 0; index1 < availTimeams.length; index1++) {
+        if (availsc[index].sample_time_id == availTimeams[index1].id) {
+          availTimeams.splice(index1, 1);
+          console.log(availTimeams);
+        }
+      }
+    }
+
+    availTimeams.forEach((times) => {
+      if (parseInt($("#session_id").val()) === 0) {
+        if (times.sched_index >= 0 && times.sched_index <= 5) {
+          if (times.sched_index != 2 && times.sched_index != 5) {
+            ops.append(
+              "<option value=" +
+                times.id +
+                ">" +
+                times.time_start +
+                "-" +
+                times.time_end +
+                "</option>"
+            );
+          }
+        }
+      } else if (parseInt($("#session_id").val()) === 1) {
+        if (times.sched_index >= 6 && times.sched_index <= 10) {
+          if (times.sched_index != 8) {
+            ops.append(
+              "<option value=" +
+                times.id +
+                ">" +
+                times.time_start +
+                "-" +
+                times.time_end +
+                "</option>"
+            );
+          }
+        }
+      }
+    });
+  }
+
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  getAllData();
+  function getAllData() {
+    sampleArray = [];
+    sampleArray1 = [];
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: { getData: "getData" },
+      success: function (data) {
+        let newData = JSON.parse(data);
+        let table = $("#bamsmsTable");
+        newData.forEach((schedules, i) => {
+          sampleArray.push(schedules);
+          let tableRow = $("<tr>", { id: newData.id });
+          $("<td>", { class: "text-wrap", html: i + 1 }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: (
+              schedules.fname +
+              " " +
+              schedules.mname +
+              " " +
+              schedules.lname
+            ).toUpperCase(),
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.school_year,
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.yearlevel_name + " " + schedules.section_name,
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: schedules.subject_name.toUpperCase(),
+          }).appendTo(tableRow);
+
+          const timeString12hr1 = new Date(
+            "1970-01-01T" + schedules.time_start + "Z"
+          ).toLocaleTimeString("en-US", {
+            timeZone: "UTC",
+            hour12: true,
+            hour: "numeric",
+            minute: "numeric",
+          });
+
+          const timeString12hr2 = new Date(
+            "1970-01-01T" + schedules.time_end + "Z"
+          ).toLocaleTimeString("en-US", {
+            timeZone: "UTC",
+            hour12: true,
+            hour: "numeric",
+            minute: "numeric",
+          });
+
+          $("<td>", {
+            class: "text-wrap",
+            html: timeString12hr1 + " - " + timeString12hr2,
+          }).appendTo(tableRow);
+          $("<td>", {
+            class: "text-wrap",
+            html: days[schedules.sample_day],
+          }).appendTo(tableRow);
+
+          // buttons action
+          let tableData = $("<td>", { class: "text-wrap" });
+          $("<button>", {
+            class: "btn btn-success mx-1 fa fa-eye ",
+            "data-id": schedules.teacher_id,
+            id: "view",
+            html: "",
+          }).appendTo(tableData);
+          $("<button>", {
+            class: "btn btn-warning mx-1 far fa-edit ",
+            "data-id": i,
+            id: "edit",
+            html: "",
+          }).appendTo(tableData);
+          $("<button>", {
+            class: "btn btn-danger mx-1 far fa-trash-alt ",
+            "data-id": schedules.id,
+            id: "delete",
+            html: "",
+          }).appendTo(tableData);
+          tableData.appendTo(tableRow);
+          table.append(tableRow);
+        });
+      },
+    });
+
+    $("#department_id").empty();
+    let opts = $("#department_id");
+    opts.append("<option value='0'>Choose Department</option>");
+    $.get({
+      url: "../controllers/departments/departmentsCrud.php",
+      data: { getData: "getData" },
+      contentType: "application/json",
+      success: function (data) {
+        let newdatadp = JSON.parse(data);
+        newdatadp.forEach((department) => {
+          opts.append(
+            "<option value=" +
+              department.id +
+              ">" +
+              department.department_name +
+              "</option>"
+          );
+        });
+      },
+    });
+
+    $("#teacher_id").empty();
+    let opts1 = $("#teacher_id");
+    opts1.append("<option value='0'>Choose Teacher</option>");
+    $.get({
+      url: "../controllers/teachers/teachersCrud.php",
+      data: { getData: "getData" },
+      contentType: "application/json",
+      success: function (data) {
+        let newdatadp = JSON.parse(data);
+        newdatadp.forEach((teacher) => {
+          opts1.append(
+            "<option value=" +
+              teacher.id +
+              ">" +
+              teacher.fname +
+              " " +
+              teacher.mname +
+              " " +
+              teacher.lname +
+              "</option>"
+          );
+        });
+      },
+    });
+  }
+
+  $("#add-new").click(function () {
+    $("#modalMainForm").trigger("reset");
+    $("#modalMainLabel").html("Add Schedule");
+    $("#department_id").attr("disabled", "disabled");
+    $("#yearlevels_id").attr("disabled", "disabled");
+    $("#rooms_id").attr("disabled", "disabled");
+    $("#subject_id").attr("disabled", "disabled");
+    $("#sample_day").attr("disabled", "disabled");
+    $("#session_id").attr("disabled", "disabled");
+    $("#sample_time_id").attr("disabled", "disabled");
+    $("#modalMain").modal("show");
+    $("#method").attr("name", "addNew");
+  });
+
+  $("#btn-mul").click(function () {
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: {
+        teacher_id: $("#teacher_id").val(),
+        department_id: $("#department_id").val(),
+        yearlevels_id: $("#yearlevels_id").val(),
+        rooms_id: $("#rooms_id").val(),
+        subject_id: $("#subject_id").val(),
+        checkSched: "check",
+      },
+      success: function (data) {
+        if (data) {
+          let newdatasched = JSON.parse(data);
+          console.log(newdatasched);
+          // newdatasched.forEach((sched) => {
+          //   alert(sched.teacher_id);
+          //   alert(sched.department_id);
+          //   alert(sched.yearlevels_id);
+          //   alert(sched.rooms_id);
+          //   alert(sched.subject_id);
+          // });
+        }
+      },
+    });
+
+    let formData = $("#modalMainForm").serializeArray();
+    $.post({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: formData,
+      success: function (data) {
+        if (data) {
+          $("#modalMainForm").trigger("reset");
+          $("#modalMain").modal("hide");
+          $("#bamsmsTable").empty();
+          // sampleArray.length = 0;
+          getAllData();
+        }
+      },
+    });
+  });
+
+  // function view(index) {
+  //   $("#schedTime").empty();
+  //   let table = $("#schedTime");
+  //   $.get({
+  //     url: "../controllers/schedules/schedulesCrud.php",
+  //     data: { getDataSched: "getDataSched", teacher_id: index },
+  //     contentType: "application/json",
+  //     success: function (data) {
+  //       let newData = JSON.parse(data);
+  //       newData.forEach((teachersched, i) => {
+  //         if (i == 0) {
+  //           $("#nameTeacher").html(
+  //             teachersched.fname +
+  //               " " +
+  //               teachersched.mname +
+  //               " " +
+  //               teachersched.lname
+  //           );
+  //         }
+  //         let tableRow = $("<tr>", { id: newData.id });
+  //         $("<td>", {
+  //           class: "text-wrap",
+  //           html: teachersched.subject_name,
+  //         }).appendTo(tableRow);
+
+  //         $("<td>", {
+  //           class: "text-wrap",
+  //           html: days[teachersched.sample_day],
+  //         }).appendTo(tableRow);
+
+  //         const timeString12hr1 = new Date(
+  //           "1970-01-01T" + teachersched.time_start + "Z"
+  //         ).toLocaleTimeString("en-US", {
+  //           timeZone: "UTC",
+  //           hour12: true,
+  //           hour: "numeric",
+  //           minute: "numeric",
+  //         });
+
+  //         const timeString12hr2 = new Date(
+  //           "1970-01-01T" + teachersched.time_end + "Z"
+  //         ).toLocaleTimeString("en-US", {
+  //           timeZone: "UTC",
+  //           hour12: true,
+  //           hour: "numeric",
+  //           minute: "numeric",
+  //         });
+
+  //         $("<td>", {
+  //           class: "text-wrap",
+  //           html: timeString12hr1 + " - " + timeString12hr2,
+  //         }).appendTo(tableRow);
+
+  //         $("<td>", {
+  //           class: "text-wrap",
+  //           html:
+  //             teachersched.yearlevel_name + " - " + teachersched.section_name,
+  //         }).appendTo(tableRow);
+
+  //         $("<td>", {
+  //           class: "text-wrap",
+  //           html: teachersched.department_name,
+  //         }).appendTo(tableRow);
+
+  //         $("<td>", {
+  //           class: "text-wrap",
+  //           html: teachersched.room_number,
+  //         }).appendTo(tableRow);
+
+  //         table.append(tableRow);
+  //       });
+  //     },
+  //   });
+
+  //   $("#modalMain2").modal("show");
+  //   $("#modalMainLabel2").html("View Sched");
+  //   // $("#btn-mul").hide();
+  // }
+  function getRandomColor() {
+    const colors = [
+      "#ff0000", // Red
+      "#00ff00", // Green
+      "#0000ff", // Blue
+      "#ffff00", // Yellow
+      "#ff00ff", // Magenta
+      "#00ffff", // Cyan
+      "#ffcc00", // Orange-Yellow
+      "#cc00ff", // Light Purple
+      "#00ffcc", // Bright Teal
+      "#ff99cc", // Pink
+      "#ccff99", // Light Lime
+      "#6699ff", // Sky Blue
+      "#ff99ff", // Light Magenta
+      "#66ff99", // Mint Green
+      "#ff6699", // Light Coral
+    ];
+
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  function setRandomColorAndContentForDay(
+    dayColumnIndex,
+    startHour,
+    endHour,
+    courseCode,
+    yearLevelName,
+    sectionName,
+    departmentName
+  ) {
+    const timeRows = document.querySelectorAll("#schedTime tr");
+    const randomColor = getRandomColor();
+
+    timeRows.forEach((row) => {
+      const time = parseFloat(row.dataset.time);
+      if (time >= startHour && time <= endHour) {
+        const cell = row.cells[dayColumnIndex];
+        cell.style.backgroundColor = randomColor;
+
+        // Add the course code only once for the given time slot
+        if (time === startHour) {
+          const courseCodeDiv = document.createElement("div");
+          courseCodeDiv.classList.add("subject_name");
+          courseCodeDiv.textContent = courseCode;
+          cell.appendChild(courseCodeDiv);
+
+          const yearLevelNameDiv = document.createElement("div");
+          yearLevelNameDiv.classList.add("grade_and_section");
+          yearLevelNameDiv.textContent = yearLevelName;
+          cell.appendChild(yearLevelNameDiv);
+
+          const sectionNameDiv = document.createElement("div");
+          sectionNameDiv.classList.add("grade_and_section");
+          sectionNameDiv.textContent = sectionName;
+          cell.appendChild(sectionNameDiv);
+
+          const departmentNameDiv = document.createElement("div");
+          departmentNameDiv.classList.add("grade_and_section");
+          departmentNameDiv.textContent = departmentName;
+          cell.appendChild(departmentNameDiv);
+        }
+      }
+    });
+
+    return randomColor;
+  }
+  function resetModal() {
+    const timeRows = document.querySelectorAll("#schedTime tr");
+    timeRows.forEach((row) => {
+      const cells = row.cells;
+      for (let i = 1; i < cells.length; i++) {
+        const cell = cells[i];
+        cell.style.backgroundColor = "";
+        cell.textContent = "";
+      }
+    });
+  }
+
+  $("#modalMain3").on("show.bs.modal", function () {
+    resetModal();
+  });
+  function view(index) {
+    $.get({
+      url: "../controllers/schedules/schedulesCrud.php",
+      data: { getDataSched: "getDataSched", teacher_id: index },
+      contentType: "application/json",
+      success: function (data) {
+        let newData = JSON.parse(data);
+
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+        const schedulesByDay = {};
+
+        newData.forEach((teachersched, i) => {
+          if (i === 0) {
+            $("#nameTeacher").html(
+              teachersched.fname +
+                " " +
+                teachersched.mname +
+                " " +
+                teachersched.lname
+            );
+          }
+
+          const timeString12hr1 = new Date(
+            "1970-01-01T" + teachersched.time_start + "Z"
+          ).toLocaleTimeString("en-US", {
+            timeZone: "UTC",
+            hour12: true,
+            hour: "numeric",
+            minute: "numeric",
+          });
+
+          const timeString12hr2 = new Date(
+            "1970-01-01T" + teachersched.time_end + "Z"
+          ).toLocaleTimeString("en-US", {
+            timeZone: "UTC",
+            hour12: true,
+            hour: "numeric",
+            minute: "numeric",
+          });
+
+          const dayOfWeek = days[teachersched.sample_day];
+
+          if (!schedulesByDay[dayOfWeek]) {
+            schedulesByDay[dayOfWeek] = [];
+          }
+
+          schedulesByDay[dayOfWeek].push({
+            startHour: parseFloat(timeString12hr1),
+            endHour: parseFloat(timeString12hr2),
+            courseCode: teachersched.subject_name,
+            sectionName: teachersched.section_name,
+            yearLevelName: teachersched.yearlevel_name,
+            departmentName: "( " + teachersched.department_name + " )",
+          });
+        });
+
+        days.forEach((day, index) => {
+          const daySchedules = schedulesByDay[day];
+          if (daySchedules) {
+            daySchedules.forEach((schedule) => {
+              const {
+                startHour,
+                endHour,
+                courseCode,
+                yearLevelName,
+                sectionName,
+                departmentName,
+              } = schedule;
+              setRandomColorAndContentForDay(
+                index + 1,
+                startHour,
+                endHour,
+                courseCode,
+                yearLevelName,
+                sectionName,
+                departmentName
+              );
+            });
+          }
+        });
+      },
+    });
+    $("#modalMain3").modal("show");
+    $("#modalMainLabel3").html("View Sched");
+    // $("#btn-mul").hide();
+  }
+
+  $("#printSched").click(function () {
+    const printContents = document.getElementById("printR").innerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+  });
+});

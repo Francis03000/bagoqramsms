@@ -1,0 +1,89 @@
+<div class="modal fade" id="modalMain" tabindex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalMainLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="modalMainForm">
+                    <input type="hidden" id="method" name="update">
+                    <input type="hidden" name="id" id="id">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="col-form-label">Teacher</label>
+                            <select class="form-control" name="teacher_id" id="teacher_id"
+                                style="border-color: #606060">
+                            </select>
+
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="col-form-label">Departments</label>
+                            <select class="form-control" name="department_id" id="department_id"
+                                style="border-color: #606060">
+                                <option>Choose Department</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <!-- <div class="form-group col-6">
+                            <label class="col-form-label">Session</label>
+                            <select class="form-control" name="session_id" id="session_id"
+                                style="border-color: #606060">
+                                <option value="">Choose Session</option>
+                                <option value="0">Morning</option>
+                                <option value="1">Afternoon</option>
+                            </select>
+                        </div> -->
+                        <div class="form-group col-6">
+                            <label class="col-form-label">Grade And Section</label>
+                            <select class="form-control" name="yearlevels_id" id="yearlevels_id"
+                                style="border-color: #606060">
+                                <option>Choose Grade/Section</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="col-form-label">Day</label>
+                            <select class="form-control" name="sample_day" id="sample_day"
+                                style="border-color: #606060">
+                                <option value="">Choose Day</option>
+                                <option value="0">Monday</option>
+                                <option value="1">Tuesday</option>
+                                <option value="2">Wednesday</option>
+                                <option value="3">Thursday</option>
+                                <option value="4">Friday</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="col-form-label">Subjects</label>
+                            <select class="form-control" name="subject_id" id="subject_id"
+                                style="border-color: #606060">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12" id="sched_time">
+                            <label class="col-form-label">Time</label>
+                            <select class="form-control" name="sample_time_id" id="sample_time_id"
+                                style="border-color: #606060">
+                                <option value="">Choose Time</option>
+                            </select>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btn-mul" name="addNew" class="btn btn-primary">Save</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let time = [
+        { start_time: "07:30:00", end_time: "08:40:00" },
+        { start_time: "08:40:00", end_time: "09:30:00" },
+        { start_time: "09:30:00", end_time: "09:40:00" },
+        { start_time: "09:40:00", end_time: "10:20:00" },
+        { start_time: "10:20:00", end_time: "11:00:00" },
+        { start_time: "11:00:00", end_time: "12:30:00" },
+        { start_time: "12:30:00", end_time: "01:20:00" },
+        { start_time: "01:20:00", end_time: "02:10:00" },
+        { start_time: "02:10:00", end_time: "02:20:00" },
+        { start_time: "02:20:00", end_time: "03:00:00" },
+        { start_time: "03:00:00", end_time: "03:40:00" },
+      ];
+
+      let teachers = [
+        { name: "Romar" },
+        { name: "Jonas" },
+        { name: "Break Time" },
+        { name: "Oscar" },
+        { name: "Joshua" },
+        { name: "Francis Caraang" },
+        { name: "Myna Pogi" },
+        { name: "Break Time" },
+        { name: "Dandan Apan" },
+        { name: "Angelika Pangilinan" },
+      ];
+
+      let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+      let newData = [];
+
+      document.write("<br>");
+      document.write("Time");
+      document.write("<br>");
+      document.write("<br>");
+      let scheds;
+      let teacher_names;
+      for (let index = 0; index < 5; index++) {
+        if (index != 2) {
+          scheds = time[index].start_time + " - " + time[index].end_time;
+          teacher_names = teachers[index].name;
+          newData.push({
+            sched_mode: "Morning",
+            sched: scheds,
+            teacher_name: teacher_names,
+          });
+        } else {
+          newData.push({
+            sched_mode: "Morning",
+            sched: scheds,
+            teacher_name: "Break Time",
+          });
+        }
+      }
+
+      let scheds1;
+      let teacher_names1;
+      for (let index = 5; index < 10; index++) {
+        if (index != 2) {
+          scheds = time[index].start_time + " - " + time[index].end_time;
+          teacher_names = teachers[index].name;
+          newData.push({
+            sched_mode: "Afternoon",
+            sched: scheds,
+            teacher_name: teacher_names,
+          });
+        } else {
+          newData.push({
+            sched_mode: "Afternoon",
+            sched: scheds,
+            teacher_name: "Break Time",
+          });
+        }
+      }
+
+      // for (let index = 0; index < 4; index++) {
+      //         scheds = time[index].start_time + " - " + time[index].end_time;
+      //         teacher_names = teachers[index].name;
+      //     newData.push({sched_mode:"Morning",sched:scheds,teacher_name:teacher_names});
+      // }
+      // document.write("<br>");
+      // document.write("Days");
+      // document.write("<br>");
+      // document.write("<br>");
+
+      // for (let index = 0; index < days.length-1; index++) {
+      //     document.write(days[index]);
+      //     document.write("<br>");
+
+      // }
+
+      // document.write("<br>");
+      // document.write("teachers");
+      // document.write("<br>");
+      // document.write("<br>");
+
+      // for (let index = 0; index < teachers.length-1; index++) {
+      //     document.write(teachers[index]);
+      //     document.write("<br>");
+
+      // }
+      let subjects = [
+        "Sub1",
+        "Sub2",
+        "Sub3",
+        "Sub4",
+        "Sub5",
+        "Sub6",
+        "Sub7",
+        "Sub8",
+      ];
+
+      // document.write("<br>");
+      // document.write("subjects");
+      // document.write("<br>");
+      // document.write("<br>");
+
+      // for (let index = 0; index < subjects.length-1; index++) {
+      //     document.write(subjects[index]);
+      //     document.write("<br>");
+
+      // }
+
+      let schoolyear = ["2020-2021", "2021-2022", "2022-2023"];
+
+      // document.write("<br>");
+      // document.write("schoolyear");
+      // document.write("<br>");
+      // document.write("<br>");
+
+      // for (let index = 0; index < schoolyear.length-1; index++) {
+      //     document.write(schoolyear[index]);
+      //     document.write("<br>");
+
+      // }
+
+      let sections = [
+        "section1",
+        "section2",
+        "section3",
+        "section4",
+        "section5",
+        "section6",
+        "section7",
+        "section8",
+      ];
+
+      // document.write("<br>");
+      // document.write("sections");
+      // document.write("<br>");
+      // document.write("<br>");
+
+      // for (let index = 0; index < sections.length-1; index++) {
+      //     document.write(sections[index]);
+      //     document.write("<br>");
+
+      // }
+
+      let year_level = [
+        "grade1",
+        "grade2",
+        "grade3",
+        "grade4",
+        "grade5",
+        "grade6",
+        "grade7",
+        "grade8",
+        "grade9",
+        "grade10",
+      ];
+
+      // document.write("<br>");
+      // document.write("year_level");
+      // document.write("<br>");
+      // document.write("<br>");
+
+      // for (let index = 0; index < year_level.length-1; index++) {
+      //     document.write(year_level[index]);
+      //     document.write("<br>");
+
+      // }
+
+      document.write("Morning Class Schedule");
+
+      document.write("<br>");
+      document.write("<br>");
+      newData.forEach((data, i) => {
+        if (data.sched_mode === "Morning") {
+          document.write(data.sched + " " + data.teacher_name);
+          document.write("<br>");
+        }
+      });
+      document.write("<br>");
+      document.write("<br>");
+
+      document.write("Afternoon Class Schedule");
+      document.write("<br>");
+      document.write("<br>");
+      newData.forEach((data, i) => {
+        if (data.sched_mode === "Afternoon") {
+          document.write(data.sched + " " + data.teacher_name);
+          document.write("<br>");
+        }
+      });
+    </script>
+  </body>
+</html>
+tite titeeee
