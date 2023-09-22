@@ -12,14 +12,15 @@
 
                 <div id="printR">
                     <div class="d-flex justify-content-between">
-                        <input type="hidden" id="newInvoiceCodes">
-                        <img src="assets/img/finger_logo.png" class="img-thumbnail" style="width:100px;">
+                        <img id="school_logo" alt="school_logo" src="assets/img/school_logo.jpg" class="img-thumbnail"
+                            style="width:100px;">
                         <center>
-                            <p class="font-weight-bold h4">School Name</p>
-                            <p class="font-weight-bold h5">General Tinio, Nueva Ecija</p>
-                            <p class="font-weight-bold h5">School ID : 12312345363</p>
+                            <p class="font-weight-bold h4" id="school_name"></p>
+                            <p class="font-weight-bold h5" id="school_address"></p>
+                            <p class="font-weight-bold h5" id="school_id"></p>
                         </center>
-                        <img src="assets/img/finger_logo.png" class="img-thumbnail" style="width:100px;">
+                        <img id="school_logo2" alt="school_logo" src="assets/img/school_logo.jpg" class="img-thumbnail"
+                            style="width:100px;">
                     </div>
                     <hr>
                     <div class="row">

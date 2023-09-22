@@ -14,16 +14,6 @@ $(document).ready(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
   });
-  $.get({
-    url: "../controllers/sections/sectionsCrud.php",
-    data: { getData2: "getData2" },
-    success: function (data) {
-      let newData = JSON.parse(data);
-      newData.forEach((date, i) => {
-        alert(date.cur_date);
-      });
-    },
-  });
 
   let sampleArray = [];
   getAllData();

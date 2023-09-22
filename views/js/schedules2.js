@@ -1536,6 +1536,21 @@ $(document).ready(function () {
     $("#modalMainLabel3").html("View Sched");
     // $("#btn-mul").hide();
   }
+  $.get({
+    url: "../controllers/customize/customizeCrud.php",
+    data: { getData: "getData" },
+    success: function (data) {
+      let newData = JSON.parse(data);
+      newData.forEach((custom, i) => {
+        $("#school_logo").attr("src", `../views/assets/img/${custom.logo}`);
+        $("#school_logo2").attr("src", `../views/assets/img/${custom.logo}`);
+
+        $("#school_name").html(custom.school_name);
+        $("#school_address").html(custom.school_address);
+        $("#school_id").html(custom.school_id);
+      });
+    },
+  });
 
   $("#printSched").click(function () {
     const printContents = document.getElementById("printR").innerHTML;
