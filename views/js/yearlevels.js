@@ -16,6 +16,17 @@ $(document).ready(function () {
     });
   });
 
+  $.get({
+    url: "../controllers/customize/customizeCrud.php",
+    data: { getData: "getData" },
+    success: function (data) {
+      let newData = JSON.parse(data);
+      newData.forEach((custom, i) => {
+        $("#container_color").css("background-color", custom.main_color);
+      });
+    },
+  });
+
   let sampleArray = [];
   getAllData();
   function getAllData() {

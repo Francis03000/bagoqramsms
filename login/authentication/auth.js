@@ -119,4 +119,15 @@ $(document).ready(function () {
       }
     }, 1000);
   }
+
+  $.get({
+    url: "../controllers/customize/customizeCrud.php",
+    data: { getData: "getData" },
+    success: function (data) {
+      let newData = JSON.parse(data);
+      newData.forEach((custom, i) => {
+        $("#myImage").attr("src", `../views/assets/img/${custom.logo}`);
+      });
+    },
+  });
 });

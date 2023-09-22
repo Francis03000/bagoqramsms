@@ -89,7 +89,7 @@
                             </span></a>
                     </li>
                     <li class="">
-                        <a href="customization"><img src="assets/img/sidebar/icon-14.png" alt="icon"
+                        <a href="customization"><img src="assets/img/sidebar/settings.png" alt="icon"
                                 style="width: 28px"><span>Customization
                             </span></a>
                     </li>

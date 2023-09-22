@@ -45,7 +45,7 @@
               <div class="col-md-6 col-lg-5 d-none d-md-block text-center">
                 <div class="d-flex  align-items-center justify-content-center"
                   style="height: 100%; margin-left: 10px ; ">
-                  <img src="../views/assets/img/school.jpg" alt="login form" class=" rounded-circle img-fluid"
+                  <img alt="login logo" id="myImage" class=" rounded-circle img-fluid"
                     style="max-width: 100%; height: auto;" />
                 </div>
               </div>

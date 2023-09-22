@@ -42,7 +42,7 @@ if (isset($_GET['getData'])) {
 } else if (isset($_GET['getIncompleteData'])) {
 
     $attendance_date = $_GET['attendance_date'];
-    // $wherec = "attendance_date = '$attendance_date'";
+    // $wherec = "attendance_date = '$attendance_date'"; 
     $DBCRUDAPI->selectleftjoins_logs_users();
     $data = $DBCRUDAPI->sql;
     $res = array();

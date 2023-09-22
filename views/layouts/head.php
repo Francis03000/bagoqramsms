@@ -55,4 +55,4 @@
   ?>
 </head>
 
-<body>
+<body id="body_color">

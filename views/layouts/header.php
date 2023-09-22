@@ -1,4 +1,4 @@
-<div class="header-outer">
+<div class="header-outer " style="height: 90px">
     <div class="header">
         <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fas fa-bars"
                 aria-hidden="true"></i></a>
@@ -19,7 +19,7 @@
                 </div>
             </li>
             <li>
-                <a href="index.html" class="mobile-logo d-md-block d-lg-none d-block"><img src="assets/img/logo1.png"
+                <a href="index" class="mobile-logo d-md-block d-lg-none d-block"><img src="assets/img/finger_logo.png"
                         alt="" width="30" height="30"></a>
             </li>
         </ul>

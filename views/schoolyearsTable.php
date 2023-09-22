@@ -15,7 +15,7 @@ if ($role_id == 0 || $role_id == 1) {
     <?php include('layouts/header.php'); ?>
     <?php include('layouts/sidebar.php'); ?>
     <div class="page-wrapper">
-        <div class="content container-fluid">
+        <div class="content container-fluid" id="container_color">
             <!-- <div class="page-header">
                 <div class="row">
                     <div class="col-md-6">

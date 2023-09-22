@@ -48,20 +48,12 @@ if ($role_id == 0 || $role_id == 1) {
                 <div class="card-body">
                     <form id="modalMainForm">
                         <input type="hidden" id="method" name="update">
-                        <input type="hidden" name="id" id="id">
-
-
-
-
-
-
-
                         <div class="row">
 
                             <div class="form-group col-6">
                                 <label class="col-form-label">Logo</label>
-                                <input type="text" class="form-control" id="address" name="address"
-                                    placeholder="Address" style="border-color: #606060">
+                                <input type="text" class="form-control" id="logo" name="logo" placeholder="Address"
+                                    style="border-color: #606060">
                             </div>
 
                             <div class="form-group col-6 ">
@@ -78,13 +70,13 @@ if ($role_id == 0 || $role_id == 1) {
 
                             <div class="form-group col-6">
                                 <label class="col-form-label">School Name</label>
-                                <input type="text" class="form-control" id="address" name="address"
+                                <input type="text" class="form-control" id="school_name" name="school_name"
                                     placeholder="Address" style="border-color: #606060">
                             </div>
 
                             <div class="form-group col-6">
                                 <label class="col-form-label">School Address</label>
-                                <input type="text" class="form-control" id="address" name="address"
+                                <input type="text" class="form-control" id="school_address" name="school_address"
                                     placeholder="Address" style="border-color: #606060">
                             </div>
                         </div>
@@ -92,7 +84,7 @@ if ($role_id == 0 || $role_id == 1) {
                         <div class="row">
                             <div class="form-group col-6">
                                 <label class="col-form-label">School Id</label>
-                                <input type="text" class="form-control" id="contact_num" name="contact_num"
+                                <input type="text" class="form-control" id="school_id" name="school_id"
                                     placeholder="Contact Number" style="border-color: #606060">
                             </div>
 
@@ -100,8 +92,8 @@ if ($role_id == 0 || $role_id == 1) {
 
 
                         <div class="footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Clear</button>
-                            <button type="button" id="btn-mul" name="addNew" class="btn btn-primary">Save</button>
+                            <button type="button" id="btn-mul" name="addNew"
+                                class="form-control col-4 d-block mx-auto btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>
@@ -109,5 +101,5 @@ if ($role_id == 0 || $role_id == 1) {
         </div>
     </div>
 </div>
-<!-- <script src="js/sections.js"></script> -->
+<script src="js/customize.js"></script>
 <?php include('layouts/footer.php'); ?>

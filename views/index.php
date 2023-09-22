@@ -4,7 +4,7 @@
     <?php include('layouts/header.php') ?>
     <?php include('layouts/sidebar.php') ?>
     <div class="page-wrapper">
-        <div class="content container-fluid bg-green">
+        <div class="content container-fluid " id="container_color">
 
             <div class="page-header bg-white">
                 <div class="row">
@@ -418,6 +418,9 @@
                     },
                 });
             });
+
+
+
 
         });
 
