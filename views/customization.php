@@ -32,19 +32,6 @@ if ($role_id == 0 || $role_id == 1) {
             </div>
 
             <div class="card  " style="margin-top:2%;">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="table-header-color page-title mb-0">Sections List</h5>
-                        </div>
-                        <div class="col">
-                            <button style="float:right;" type="button" class="btn btn-primary" id="add-new"> <i
-                                    class="fas fa-plus"></i> Add </button>
-                        </div>
-
-                    </div>
-
-                </div>
                 <div class="card-body">
                     <form id="modalMainForm">
                         <input type="hidden" id="method" name="update">
@@ -55,7 +42,7 @@ if ($role_id == 0 || $role_id == 1) {
                                 <input type="text" class="form-control" id="logo" name="logo" placeholder="Address"
                                     style="border-color: #606060">
                             </div> -->
-                            <div class="col-6 form-group text-center">
+                            <div class=" d-block mx-auto form-group text-center">
 
                                 <div class="rounded-circle img-fluid border border-secondary "
                                     style="width: 150px; height: 150px; overflow: hidden;">
@@ -73,17 +60,18 @@ if ($role_id == 0 || $role_id == 1) {
 
                             </div>
 
-                            <div class="form-group col-6 ">
-                                <label class="col-form-label">Choose Color </label>
-                                <input type="color" class=" form-control" id="main_color" name="main_color"
-                                    style="border-color: #606060">
-                            </div>
+
 
                         </div>
 
 
 
                         <div class="row">
+                            <div class="form-group col-6 ">
+                                <label class="col-form-label">Choose Color </label>
+                                <input type="color" class=" form-control" id="main_color" name="main_color"
+                                    style="border-color: #606060">
+                            </div>
 
                             <div class="form-group col-6">
                                 <label class="col-form-label">School Name</label>
@@ -91,14 +79,15 @@ if ($role_id == 0 || $role_id == 1) {
                                     placeholder="Address" style="border-color: #606060">
                             </div>
 
+
+                        </div>
+
+                        <div class="row">
                             <div class="form-group col-6">
                                 <label class="col-form-label">School Address</label>
                                 <input type="text" class="form-control" id="school_address" name="school_address"
                                     placeholder="Address" style="border-color: #606060">
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="form-group col-6">
                                 <label class="col-form-label">School Id</label>
                                 <input type="text" class="form-control" id="school_id" name="school_id"
@@ -106,6 +95,11 @@ if ($role_id == 0 || $role_id == 1) {
                             </div>
 
                         </div>
+                        <!-- <div class="d-block mx-auto ">
+                            <img src="assets/img/color_pallete.png" alt="" style="height:250px; ">
+
+                        </div> -->
+
 
 
                         <div class="footer">

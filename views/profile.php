@@ -115,6 +115,27 @@
                                                 </p>
                                             </div>
                                         </div>
+                                        <br><br>
+
+                                        <label
+                                            class="h4 font-weight-bold col-form-label d-block mx-auto text-center">Change
+                                            Password</label>
+
+
+                                        <div class="row">
+
+                                            <div class="form-group col-6">
+                                                <label class="col-form-label">New Password</label>
+                                                <input type="password" class="form-control" id="pass1" name="pass1"
+                                                    placeholder="password" style="border-color: #606060">
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label class="col-form-label">Confirm Password</label>
+                                                <input type="password" class="form-control" id="pass2" name="pass2"
+                                                    placeholder="password" style="border-color: #606060">
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -127,4 +148,29 @@
     </div>
 </div>
 <!-- <script src="js/guard.js"></script> -->
+<script>
+    $(document).ready(function () {
+        // Select the password fields by their IDs
+        var pass1Field = $('#pass1');
+        var pass2Field = $('#pass2');
+
+        // Function to check if passwords match
+        function checkPasswordMatch() {
+            var pass1 = pass1Field.val();
+            var pass2 = pass2Field.val();
+
+            if (pass1 === pass2) {
+                pass1Field.css('border-color', 'green');
+                pass2Field.css('border-color', 'green');
+            } else {
+                pass1Field.css('border-color', 'red');
+                pass2Field.css('border-color', 'red');
+            }
+        }
+
+        pass2Field.on('input', checkPasswordMatch);
+    });
+</script>
+
+
 <?php include('layouts/footer.php'); ?>

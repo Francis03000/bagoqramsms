@@ -25,7 +25,8 @@
 
 
                     <li class="">
-                        <a href="rolesTable"><img src="assets/img/sidebar/icon-10.png" alt="icon"><span>Roles</span></a>
+                        <a href="rolesTable"><img src="assets/img/sidebar/businessman.png" alt="icon"
+                                style="width: 28px"><span>Roles</span></a>
                     </li>
 
                     <li class="">
