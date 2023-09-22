@@ -12,6 +12,15 @@ if (isset($_GET['getData'])) {
         $res[] = $datass;
     }
     echo json_encode($res);
+}
+if (isset($_GET['getData2'])) {
+    $DBCRUDAPI->select_date();
+    $data = $DBCRUDAPI->sql;
+    $res = array();
+    while ($datass = mysqli_fetch_assoc($data)) {
+        $res[] = $datass;
+    }
+    echo json_encode($res);
 } else {
     if (isset($_POST['addNew'])) {
         $section_name = $_POST["section_name"];

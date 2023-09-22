@@ -73,6 +73,12 @@ class DBCRUDAPI
 
         $this->sql = $result = $this->mysqli->query($sql);
     }
+    public function select_date()
+    {
+        $sql = "SELECT CURDATE() as cur_date ";
+
+        $this->sql = $result = $this->mysqli->query($sql);
+    }
     public function select2($table, $rows = "*", $where = null, $logic = null)
     {
         // $rows = implode(',', $rows);

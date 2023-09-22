@@ -191,7 +191,7 @@
     </div>
 
     <?php include('layouts/footer.php') ?>
-    <script src="js/attendance.js"></script>
+    <!-- <script src="js/attendance.js"></script> -->
 
     <script>
         $(document).ready(function () {

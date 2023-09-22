@@ -50,10 +50,27 @@ if ($role_id == 0 || $role_id == 1) {
                         <input type="hidden" id="method" name="update">
                         <div class="row">
 
-                            <div class="form-group col-6">
+                            <!-- <div class="form-group col-6">
                                 <label class="col-form-label">Logo</label>
                                 <input type="text" class="form-control" id="logo" name="logo" placeholder="Address"
                                     style="border-color: #606060">
+                            </div> -->
+                            <div class="col-6 form-group text-center">
+
+                                <div class="rounded-circle img-fluid border border-secondary "
+                                    style="width: 150px; height: 150px; overflow: hidden;">
+                                    <img src="assets/img/user.jpg" id="image_preview" alt="Selected Image"
+                                        class="img-fluid" style="width: 100%; height: 100%;">
+                                </div>
+                                <div class="input-group">
+                                    <label for="logo" class="input-group-addon mx-4" style="cursor: pointer;">
+                                        <i class="fa fa-camera" aria-hidden="true">Choose Image</i>
+                                    </label>
+                                    <input type="file" id="logo" name="logo" accept="image/*" style="display: none;">
+                                    <input type="hidden" id="update_img" name="update_img">
+
+                                </div>
+
                             </div>
 
                             <div class="form-group col-6 ">

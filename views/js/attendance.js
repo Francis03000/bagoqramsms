@@ -2,15 +2,40 @@ $(document).ready(function () {
   var currentDate2 = new Date();
   var currentHour = currentDate2.getHours();
   var currentMinute = currentDate2.getMinutes();
+  const year = currentDate2.getFullYear();
+  const month = String(currentDate2.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate2.getDate()).padStart(2, "0");
 
-  if (currentHour >= 18) {
-    const currentDate2 = new Date().toISOString().slice(0, 10);
+  const formattedDate = `${year}-${month}-${day}`;
+  // const currentDate23 = new Date().toISOString().slice(0, 10);
+  // alert(currentDate23);
 
+  $("#done").click(function () {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "The attendance today will be finished!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, end it!",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        done();
+        window.location.reload();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "Action cancelled:)", "error");
+      }
+    });
+  });
+
+  function done() {
     $.get({
       url: "../controllers/attendance/attendanceCrud.php",
       data: {
         getIncompleteData: "getIncompleteData",
-        attendance_date: currentDate2,
+        attendance_date: formattedDate,
       },
       success: function (data) {
         var data = JSON.parse(data);
@@ -21,7 +46,7 @@ $(document).ready(function () {
               data: {
                 insertAbsent: "insertAbsent",
                 user_id: user.id,
-                attendance_date: currentDate2,
+                attendance_date: formattedDate,
                 stats: "Absent",
               },
               success: function (response) {},
@@ -30,6 +55,10 @@ $(document).ready(function () {
         }
       },
     });
+  }
+
+  if (currentHour >= 18) {
+    done();
   }
   $("#hide_qr_code").hide();
   let scanner = new Instascan.Scanner({
@@ -88,7 +117,7 @@ $(document).ready(function () {
               data: {
                 getDataLogs: "getDataLogs",
                 user_id: $user_id,
-                attendance_date: currentDate,
+                attendance_date: formattedDate,
               },
               success: function (data) {
                 var data = JSON.parse(data);
@@ -161,7 +190,7 @@ $(document).ready(function () {
                                 user_id: $user_id,
                                 time_in: timeIn,
                                 remarks_in: $remarksIn,
-                                attendance_date: currentDate,
+                                attendance_date: formattedDate,
                               },
                               success: function (data) {
                                 $("#bamsmsTable").empty();
@@ -279,7 +308,7 @@ $(document).ready(function () {
                                     time_out: timeOut,
                                     remarks_out: $remarksOut,
                                     stats: status,
-                                    attendance_date: currentDate,
+                                    attendance_date: formattedDate,
                                   },
                                   success: function (data) {
                                     $("#bamsmsTable").empty();
@@ -352,7 +381,7 @@ $(document).ready(function () {
     sampleArray = [];
     $.get({
       url: "../controllers/attendance_log/attendance_logCrud.php",
-      data: { getData: "getData", attendance_date: currentDate },
+      data: { getData: "getData", attendance_date: formattedDate },
       success: function (data) {
         pushDatas(data);
       },

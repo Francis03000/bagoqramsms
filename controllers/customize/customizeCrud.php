@@ -14,9 +14,41 @@ if (isset($_GET['getData'])) {
     echo json_encode($res);
 } else {
     if (isset($_POST['update'])) {
+        $logo = $_FILES['file']['name'];
+        if (empty($logo)) {
+            $logo = $_POST['update_img'];
+        }
+
+
+
+
+
+        if (isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])) {
+            $newFilename = $_FILES['file']['name'];
+
+            $newLocation = "../../views/assets/img/" . $newFilename;
+            $newImageFileType = pathinfo($newLocation, PATHINFO_EXTENSION);
+            $newImageFileType = strtolower($newImageFileType);
+
+            $valid_extensions = array("jpg", "jpeg", "png", "gif");
+
+            if (in_array(strtolower($newImageFileType), $valid_extensions)) {
+
+                $oldLocation = "../../views/assets/img/" . $logo;
+                if (file_exists($oldLocation)) {
+                    unlink($oldLocation);
+                }
+
+                if (move_uploaded_file($_FILES['file']['tmp_name'], $newLocation)) {
+                    $logo = $newFilename;
+                }
+            }
+        }
+
+
+
 
         $id = 1;
-        $logo = $_POST["logo"];
         $school_name = $_POST["school_name"];
         $school_address = $_POST["school_address"];
         $school_id = $_POST["school_id"];
