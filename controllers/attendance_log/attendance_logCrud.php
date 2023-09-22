@@ -59,6 +59,18 @@ if (isset($_GET['getData2'])) {
 
 
 } else if (isset($_GET['getDataEmployee2'])) {
+    $attendance_date = $_GET['attendance_date'];
+
+    $DBCRUDAPI->selectleftjoin("attendance_log", "users", "id", "user_id", ["attendance_log.*", "users.fname", "users.mname", "users.lname"], " attendance_date LIKE '%$attendance_date%'");
+    $data = $DBCRUDAPI->sql;
+    $res = array();
+    while ($datass = mysqli_fetch_assoc($data)) {
+        $res[] = $datass;
+    }
+    echo json_encode($res);
+
+
+} else if (isset($_GET['getDataEmployee2'])) {
     $user_id = $_GET['user_id'];
     $attendance_date = $_GET['attendance_date'];
 

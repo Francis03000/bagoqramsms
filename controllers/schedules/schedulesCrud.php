@@ -192,8 +192,12 @@ if (isset($_GET['getData'])) {
                 echo json_encode(array("success" => false));
             }
         } else if ($type === 'no') {
+            $selectedDays = $_POST["sample_day"];
 
-            $DBCRUDAPI->insert('class_schedules', ['teacher_id' => $teacher_id, 'sem' => $sem, 'school_year_val' => $school_year, 'sample_day' => $sample_day, 'time_start' => $time_start, 'time_end' => $time_end]);
+            foreach ($selectedDays as $value) {
+                $DBCRUDAPI->insert('class_schedules', ['teacher_id' => $teacher_id, 'sem' => $sem, 'school_year_val' => $school_year, 'sample_day' => $value, 'time_start' => $time_start, 'time_end' => $time_end]);
+
+            }
 
             if ($DBCRUDAPI) {
                 echo json_encode(array("success" => true));

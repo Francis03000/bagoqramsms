@@ -6,7 +6,7 @@
             <div class="header-left">
                 <a href="index" class="logo">
                     <img src="assets/img/finger_logo.png" width="40" height="40" alt="">
-                    <span class="text-uppercase">BAMSMS</span>
+                    <span class="text-uppercase">QRAMSMS</span>
                 </a>
             </div>
             <ul class="sidebar-ul">
@@ -86,6 +86,11 @@
                     <li class="">
                         <a href="attendance_view"><img src="assets/img/dash/log.png" alt="icon"
                                 style="width: 28px"><span>Attendance
+                            </span></a>
+                    </li>
+                    <li class="">
+                        <a href="customization"><img src="assets/img/sidebar/icon-14.png" alt="icon"
+                                style="width: 28px"><span>Customization
                             </span></a>
                     </li>
 

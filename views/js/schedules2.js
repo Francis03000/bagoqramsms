@@ -67,6 +67,7 @@ $(document).ready(function () {
         $("#subject_label").hide();
         $("#school_year").removeAttr("disabled");
         $("#sample_day").removeAttr("disabled");
+        $("input[name='sample_day[]']").removeAttr("disabled");
       } else {
         $("#yearlevels_id").show();
         $("#subject_id").show();

@@ -5,7 +5,9 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="../views/assets/img/finger_logo.png">
+  <link href="../views/assets/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet"> -->
 
   <link rel="stylesheet" href="fonts/icomoon/style.css">
 
@@ -19,7 +21,7 @@
   <!-- Style -->
   <link rel="stylesheet" href="css/style.css">
 
-  <title>BAMSMS</title>
+  <title>QRAMSMS</title>
 
 
   <?php session_start(); ?>
@@ -43,7 +45,7 @@
               <div class="col-md-6 col-lg-5 d-none d-md-block text-center">
                 <div class="d-flex  align-items-center justify-content-center"
                   style="height: 100%; margin-left: 10px ; ">
-                  <img src="../views/assets/img/sto-logo.png" alt="login form" class="img-fluid"
+                  <img src="../views/assets/img/school.jpg" alt="login form" class=" rounded-circle img-fluid"
                     style="max-width: 100%; height: auto;" />
                 </div>
               </div>

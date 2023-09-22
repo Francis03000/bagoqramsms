@@ -4,12 +4,12 @@
     <?php include('layouts/header.php') ?>
     <?php include('layouts/sidebar.php') ?>
     <div class="page-wrapper">
-        <div class="content container-fluid">
+        <div class="content container-fluid bg-green">
 
-            <div class="page-header">
+            <div class="page-header bg-white">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="page-title mb-0">Dashboard</h3>
+                        <h3 class="page-title mb-0 ">Dashboard</h3>
                     </div>
                     <div class="col-md-6">
                         <ul class="breadcrumb mb-0 p-0 float-right">
@@ -108,7 +108,7 @@
 
             <div class="row">
 
-                <div class="col-lg-6 d-flex">
+                <!-- <div class="col-lg-6 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="row align-items-center">
@@ -124,23 +124,53 @@
                             <div id="chart3"></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
-                <div class="col-lg-6 d-flex">
+                <div class="col-lg-12 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
-                            <div class="row align-items-center">
+                            <!-- <div class="row align-items-center">
                                 <div class="col-auto">
-                                    <div class="page-title">
-                                        Employee Attendance Chart
-                                    </div>
+
+
+                                </div>
+
+                            </div> -->
+
+                            <div class="row">
+                                <div class="col-8 page-title">
+                                    Employee Attendance Chart Record
+                                </div>
+                                <div class="col-4 text-center">
+                                    <select class="form-control" name="" id="log_year_month">
+                                        <option value="">Select Date</option>
+                                    </select>
+
                                 </div>
 
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id="chart4"></div>
+
+                            <table class="table table-bordered table-striped table-success" id="excel_table">
+
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Time In</th>
+                                        <th>Remarks In</th>
+                                        <th>Time Out</th>
+                                        <th>Remarks Out </th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="attendance_report">
+                                </tbody>
+
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -223,6 +253,172 @@
                     });
                 },
             });
+
+
+
+            const currentDate = new Date().toISOString().slice(0, 10);
+            const [year, month] = currentDate.split("-");
+
+
+            let sampleArray = [];
+            getAllData();
+            function getAllData() {
+                var attendance_date = year + "-" + month;
+                // alert(attendance_date);
+
+                $.get({
+                    url: "../controllers/attendance_log/attendance_logCrud.php",
+                    data: {
+                        getDataEmployee2: "getDataEmployee2",
+                        attendance_date: attendance_date,
+                    },
+                    contentType: "application/json",
+                    success: function (data) {
+                        populateAttendance(data);
+                    },
+                });
+            }
+
+            function populateAttendance(data) {
+                $("#attendance_report").empty();
+                let table = $("#attendance_report");
+                let newData = JSON.parse(data);
+                newData.forEach((user, i) => {
+
+                    if (user != 0) {
+                        let tableRow = $("<tr>", { id: newData.id });
+                        $("<td>", {
+                            class: "text-wrap",
+                            html: user.fname + " " + user.mname + " " + user.lname
+                        }).appendTo(tableRow);
+                        $("<td>", {
+                            class: "text-wrap",
+                            html: user.time_in,
+                        }).appendTo(tableRow);
+                        $("<td>", {
+                            class: "text-wrap",
+                            html: user.remarks_in,
+                        }).appendTo(tableRow);
+                        $("<td>", {
+                            class: "text-wrap",
+                            html: user.time_out,
+                        }).appendTo(tableRow);
+                        $("<td>", {
+                            class: "text-wrap",
+                            html: user.remarks_out,
+                        }).appendTo(tableRow);
+                        if (user.status === "Incomplete") {
+                            $color = "text-warning";
+                        } else if (user.status === "Present") {
+                            $color = "text-success";
+                        } else if (user.status === "Absent") {
+                            $color = "text-danger";
+                        }
+
+                        $("<td>", {
+                            class: "text-wrap " + $color,
+                            html: user.status,
+                        }).appendTo(tableRow);
+                        const dateStr = user.attendance_date;
+
+                        const [datePart, timePart] = dateStr.split(" ");
+
+                        const [year, month, day] = datePart.split("-");
+
+                        const months = [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December",
+                        ];
+
+                        const monthWord = months[parseInt(month) - 1];
+
+                        const formattedDate = `${monthWord} ${day}, ${year}`;
+                        $("<td>", {
+                            class: "text-wrap",
+                            html: formattedDate,
+                        }).appendTo(tableRow);
+
+                        table.append(tableRow);
+                    }
+                });
+            }
+
+
+            $.get({
+                url: "../controllers/attendance_log/attendance_logCrud.php",
+                data: {
+                    getDistinctLog: "getDistinctLog",
+                },
+                success: function (data) {
+                    var options = "";
+                    var data = JSON.parse(data);
+                    if (data.length != 0) {
+                        options = '<option value="">Select Date</option>';
+                        data.forEach(function (date) {
+                            const month = date.month;
+
+                            const months = [
+                                "January",
+                                "February",
+                                "March",
+                                "April",
+                                "May",
+                                "June",
+                                "July",
+                                "August",
+                                "September",
+                                "October",
+                                "November",
+                                "December",
+                            ];
+                            const year = date.year; // Remove the unnecessary assignment here
+                            const monthWord = months[parseInt(month) - 1];
+
+                            const formattedDate = `${monthWord}, ${year}`;
+                            options +=
+                                '<option value="' +
+                                date.year +
+                                "-" +
+                                date.month +
+                                '">' +
+                                formattedDate +
+                                "";
+                            ("</option>");
+                        });
+                    } else {
+                        options = '<option value="">No dates available</option>';
+                    }
+
+                    $("#log_year_month").html(options);
+                },
+            });
+
+            $("#log_year_month").change(function () {
+                var log_year_month = $(this).val();
+
+                $.get({
+                    url: "../controllers/attendance_log/attendance_logCrud.php",
+                    data: {
+                        getDataEmployee2: "getDataEmployee2",
+                        attendance_date: log_year_month,
+                    },
+                    contentType: "application/json",
+                    success: function (data) {
+                        populateAttendance(data);
+                    },
+                });
+            });
+
         });
 
     </script>

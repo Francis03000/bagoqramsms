@@ -1,7 +1,15 @@
 <?php include('layouts/head.php'); ?>
 <?php
+$role_id = $_SESSION["userRoleId"];
 
-header('location: 404');
+if ($role_id == 0 || $role_id == 1) {
+    // 
+
+
+} else {
+    header('location: 404');
+
+}
 ?>
 
 <div class="main-wrapper">
@@ -32,11 +40,11 @@ header('location: 404');
                         id="filesearch"> -->
 
 
-                    <!-- <button style="float:right;" type="button" class="btn btn-primary" id="add-new"> <i
-                            class="fas fa-plus"></i> Add</button> -->
+                    <button style="float:right;" type="button" class="btn btn-primary" id="add-new"> <i
+                            class="fas fa-plus"></i> Add</button>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class=" col-3 text-center">
                             <select class="form-control" name="" id="attendance_dates"></select>
                         </div>
@@ -51,7 +59,7 @@ header('location: 404');
                             </select>
 
                         </div>
-                    </div>
+                    </div> -->
 
 
 
@@ -75,7 +83,7 @@ header('location: 404');
                         </table>
 
                     </div>
-                    <?php include('modals/attendance_logModal.php'); ?>
+                    <?php include('modals/attendance_Modal.php'); ?>
                 </div>
             </div>
         </div>
