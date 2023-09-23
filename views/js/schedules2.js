@@ -123,10 +123,22 @@ $(document).ready(function () {
       });
     }
   });
+  function resetCheckboxes() {
+    $('input[name="sample_day[]"]').prop("checked", false);
+  }
 
+  // When the grade and section select element changes
+  $("#yearlevels_id").on("change", function () {
+    // Check if a grade and section are selected
+    if ($(this).val() !== "") {
+      // Reset checkboxes
+      resetCheckboxes();
+    }
+  });
   $("#yearlevels_id").change(function () {
     if (parseInt($("#yearlevels_id").val) !== 0) {
       $("#sample_day").val(null);
+      resetCheckboxes();
       $("input[name='sample_day[]']").removeAttr("disabled");
       $("#sample_day").removeAttr("disabled");
     }
