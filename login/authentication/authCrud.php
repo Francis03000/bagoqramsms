@@ -21,6 +21,8 @@ if (isset($_POST['loginUser'])) {
         $_SESSION['userAddress'] = $datass['address'];
         $_SESSION['userMobile'] = $datass['contact_num'];
         $_SESSION['userImage'] = $datass['user_img'];
+        $_SESSION['password'] = $datass['password'];
+
 
 
 

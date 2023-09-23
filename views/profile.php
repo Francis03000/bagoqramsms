@@ -9,6 +9,10 @@
     $email = $_SESSION["userEmail"];
     $mobile = $_SESSION["userMobile"];
     $user_img = $_SESSION["userImage"];
+    $password = $_SESSION["password"];
+    $id = $_SESSION["user_active_id"];
+
+
 
 
 
@@ -116,11 +120,15 @@
                                             </div>
                                         </div>
                                         <br><br>
-
+                                        <input type="hidden" class="form-control" id="real_pass" name="real_pass">
                                         <label
                                             class="h4 font-weight-bold col-form-label d-block mx-auto text-center">Change
                                             Password</label>
-
+                                        <div class="form-group col-6 d-block mx-auto">
+                                            <label class="col-form-label">Old Password</label>
+                                            <input type="password" class="form-control" id="pass" name="pass"
+                                                placeholder="old password" style="border-color: #606060">
+                                        </div>
 
                                         <div class="row">
 
@@ -135,6 +143,8 @@
                                                     placeholder="password" style="border-color: #606060">
                                             </div>
                                         </div>
+                                        <button type="button" id="btn-mul" name="addNew"
+                                            class="form-control col-4 d-block mx-auto btn btn-primary">Change</button>
 
                                     </div>
                                 </div>
@@ -147,14 +157,51 @@
         </div>
     </div>
 </div>
-<!-- <script src="js/guard.js"></script> -->
 <script>
     $(document).ready(function () {
-        // Select the password fields by their IDs
+
+        const cipher = (salt) => {
+            const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+            const byteHex = (n) => ("0" + Number(n).toString(16)).substr(-2);
+            const applySaltToChar = (code) =>
+                textToChars(salt).reduce((a, b) => a ^ b, code);
+
+            return (text) =>
+                text
+                    .split("")
+                    .map(textToChars)
+                    .map(applySaltToChar)
+                    .map(byteHex)
+                    .join("");
+        };
+        const decipher = (salt) => {
+            const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+            const applySaltToChar = (code) =>
+                textToChars(salt).reduce((a, b) => a ^ b, code);
+            return (encoded) =>
+                encoded
+                    .match(/.{1,2}/g)
+                    .map((hex) => parseInt(hex, 16))
+                    .map(applySaltToChar)
+                    .map((charCode) => String.fromCharCode(charCode))
+                    .join("");
+        };
+        const myDeCipher = decipher("BAMSMS");
+        const myCiphher = cipher("BAMSMS");
+
+        var real_pass = <?php echo json_encode($password); ?>;
+        var id = <?php echo json_encode($id); ?>;
+        var email = <?php echo json_encode($email); ?>;
+
+
+        var real_password = myDeCipher(real_pass);
+
+
+
         var pass1Field = $('#pass1');
+        var passField = $('#pass');
         var pass2Field = $('#pass2');
 
-        // Function to check if passwords match
         function checkPasswordMatch() {
             var pass1 = pass1Field.val();
             var pass2 = pass2Field.val();
@@ -169,6 +216,99 @@
         }
 
         pass2Field.on('input', checkPasswordMatch);
+
+
+        $("#btn-mul").click(function () {
+            var old_pass = $("#pass").val();
+
+            var old_pass2 = myCiphher(old_pass);
+
+
+
+            // if (
+            //     $("#pass").val() === "" ||
+            //     $("#pass1").val() === "" ||
+            //     $("#pass2").val() === ""
+            // ) {
+            //     Swal.fire({
+            //         position: "text-center",
+            //         icon: "warning",
+            //         title: "Please fill in all required fields.",
+            //         showConfirmButton: false,
+            //         timer: 1500,
+            //     });
+            //     return;
+            // }
+
+            if (real_password != old_pass) {
+                passField.css('border-color', 'red');
+
+
+
+            } else {
+                var pass1Field = $('#pass1');
+                var passField = $('#pass');
+                var pass2Field = $('#pass2');
+                var pass1 = pass1Field.val();
+                var pass2 = pass2Field.val();
+                var password_update = myCiphher(pass2);
+
+
+                if (pass1 === pass2) {
+
+
+                    $.post({
+                        url: "../controllers/user/userCrud.php",
+                        data: {
+                            updatePass: "updatePass",
+                            password: password_update,
+                            id: id,
+                            new_pass: pass2,
+                            email: email,
+
+
+                        },
+                        success: function (data) {
+                            if (data) {
+                                Swal.fire({
+                                    position: "text-center",
+                                    icon: "success",
+                                    title: "New password updated",
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                }).then(
+                                    setTimeout(() => {
+                                        window.location.href = "logout.php";
+
+
+                                    }, 2000)
+
+                                );
+                            }
+                        },
+                    })
+
+                } else {
+                    Swal.fire({
+                        position: "text-center",
+                        icon: "warning",
+                        title: "New password do not match",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+
+
+                passField.css('border-color', 'black');
+
+
+            }
+
+
+
+
+
+        });
     });
 </script>
 

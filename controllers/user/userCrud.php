@@ -221,6 +221,46 @@ if (isset($_GET['getData'])) {
         } else {
             echo json_encode(array("success" => false));
         }
+    } else if (isset($_POST['updatePass'])) {
+
+        $id = $_POST["id"];
+        $password = $_POST["password"];
+        $new_pass = $_POST["new_pass"];
+        $email = $_POST["email"];
+
+
+
+        $mail = new PHPMailer(true);
+
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'francisdeleon872@gmail.com';
+        $mail->Password = 'ayeyfgqrsfbvvsde';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+
+        $mail->setFrom('francisdeleon872@gmail.com');
+
+        $mail->addAddress($_POST["email"]);
+
+        $mail->isHTML(true);
+
+        $mail->Name = "QRAMSMS Account Updated Password";
+        $mail->Subject = "QRAMSMS Account Updated Password";
+        $mail->Body = "Your Updated password: " . $_POST["new_pass"];
+
+        $mail->send();
+
+
+
+        $DBCRUDAPI->update('users', ['password' => $password], "id='$id'");
+        if ($DBCRUDAPI) {
+            echo json_encode(array("success" => true));
+        } else {
+            echo json_encode(array("success" => false));
+        }
+
     } else if (isset($_POST['delete'])) {
 
         $id = $_POST["id"];

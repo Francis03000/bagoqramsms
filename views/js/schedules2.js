@@ -1345,6 +1345,22 @@ $(document).ready(function () {
     return parseFloat(roundedDecimal);
   }
 
+  // function resetModal() {
+  //   const timeRows = document.querySelectorAll("#schedTime tr");
+
+  //   timeRows.forEach((row) => {
+  //     const cells = row.cells;
+  //     for (let i = 1; i < cells.length; i++) {
+  //       const cell = cells[i];
+  //       cell.style.backgroundColor = "";
+  //       cell.textContent = "";
+  //     }
+  //   });
+
+  //   addedRows.forEach((row) => {
+  //     row.remove();
+  //   });
+  // }
   function resetModal() {
     const timeRows = document.querySelectorAll("#schedTime tr");
 
@@ -1353,6 +1369,7 @@ $(document).ready(function () {
       for (let i = 1; i < cells.length; i++) {
         const cell = cells[i];
         cell.style.backgroundColor = "";
+        cell.style.background = "";
         cell.textContent = "";
       }
     });
@@ -1361,6 +1378,7 @@ $(document).ready(function () {
       row.remove();
     });
   }
+
   let addedRows = [];
   function addTimeRow(time) {
     const tbody = document.getElementById("schedTime");
@@ -1437,6 +1455,11 @@ $(document).ready(function () {
   $("#modalMain3").on("show.bs.modal", function () {
     resetModal();
   });
+
+  // $("#modalMain3").on("hidden.bs.modal", function () {
+  //   resetModal();
+  // });
+
   function view(index, sem, schoolYear) {
     $.get({
       url: "../controllers/schedules/schedulesCrud.php",
