@@ -2,70 +2,37 @@
 <html>
 
 <head>
-    <title>Hello World</title>
-    <!-- Add the Bootstrap CSS link -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Multiple Selection Example</title>
 </head>
 
 <body>
-    <div class="container mt-4">
-        <form method="post">
-            <div class="form-group">
-                <p>Select days of the week:</p>
-                <?php
-                // Define an associative array to map values to day names
-                $days = [
-                    0 => 'Monday',
-                    1 => 'Tuesday',
-                    2 => 'Wednesday',
-                    3 => 'Thursday',
-                    4 => 'Friday',
-                ];
-
-                // Generate checkboxes for days
-                foreach ($days as $value => $day) {
-                    echo "<div class='form-check'>";
-                    echo "<input class='form-check-input' type='checkbox' name='days[]' value='$value' id='checkbox$value'>";
-                    echo "<label class='form-check-label' for='checkbox$value'>$day</label>";
-                    echo "</div>";
-                }
-                ?>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Say Hello</button>
-        </form>
-
-        <?php
-        // Check if the form is submitted
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["days"])) {
-            // Get the selected days from the form as numbers
-            $selectedDays = $_POST["days"];
-            foreach ($selectedDays as $value) {
-                echo "<p class='alert alert-success mt-2'>Hello, World $value</p>";
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        echo '<h2>Selected Values:</h2>';
+        echo '<ul>';
+        if (isset($_POST['selections'])) {
+            $selectedValues = $_POST['selections'];
+            foreach ($selectedValues as $value) {
+                echo "<li>$value</li>";
             }
-
-
+        } else {
+            echo '<li>No values selected.</li>';
         }
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["days"])) {
-            // Get the selected days from the form
-            $selectedDays = $_POST["days"];
-            if (empty($selectedDays)) {
-                echo "<p class='alert alert-danger mt-2'>Please select at least one day.</p>";
-            } else {
-                echo "<p class='alert alert-success mt-2'>Selected days: ";
-                foreach ($selectedDays as $value) {
-                    echo $days[$value] . ", ";
-                }
-                echo "</p>";
-            }
-        }
-        ?>
-    </div>
+        echo '</ul>';
+    }
+    ?>
 
-    <!-- Add the Bootstrap JavaScript and jQuery scripts (required for some Bootstrap components) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <form method="post" action="">
+        <label for="selections">Select multiple items:</label>
+        <select name="selections[]" id="selections" multiple>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+            <option value="5">Option 5</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 
 </html>

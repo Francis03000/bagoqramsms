@@ -1,6 +1,6 @@
 <style>
     #schedTime td {
-        border: none;
+        /* border: none; */
         padding: 0.1rem;
     }
 
@@ -56,7 +56,7 @@
                     <p>Teache Name: <span id="nameTeacher"></span></p>
 
                     <!-- Your existing table -->
-                    <table class="table table-bordered table-striped table-success">
+                    <table class="table table-bordered table-success">
                         <thead class="bg-light">
                             <tr>
                                 <th>Time</th>
