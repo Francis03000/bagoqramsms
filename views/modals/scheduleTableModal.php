@@ -1,8 +1,5 @@
 <style>
-    #schedTime td {
-        /* border: none; */
-        padding: 0.1rem;
-    }
+    #schedTime td {}
 
 
 
@@ -12,7 +9,6 @@
         font-size: 12px;
         line-height: 1;
         padding: 1px;
-        margin-bottom: 5px;
         font-family: "Lucida Console", "Courier New", monospace;
     }
 
@@ -33,7 +29,7 @@
     }
 </style>
 <div class="modal fade" id="modalMain3" tabindex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalMainLabel3">New message</h5>

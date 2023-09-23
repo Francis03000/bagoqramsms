@@ -51,8 +51,8 @@ if ($role_id == 0 || $role_id == 1) {
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table">
-                            <thead>
+                        <table class="table table-bordered table-striped table-success">
+                            <thead class="bg-green">
                                 <tr>
                                     <th scope="col"></th>
                                     <th scope="col">Subject Name</th>

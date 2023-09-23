@@ -933,6 +933,25 @@ $(document).ready(function () {
         return;
       }
     }
+    if (type == "no") {
+      if (
+        $("#teacher_id").val() === "" ||
+        $("#school_year").val() === "" ||
+        $("#sem").val() === "" ||
+        $("input[name='sample_day[]']:checked").length === 0 ||
+        $("#time_start").val() === "" ||
+        $("#time_end").val() === ""
+      ) {
+        Swal.fire({
+          position: "text-center",
+          icon: "warning",
+          title: "Please fill in all required fields.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+    }
 
     // Get an array of selected sample days
     var selectedSampleDays = $("input[name='sample_day[]']:checked")
@@ -1275,37 +1294,26 @@ $(document).ready(function () {
           // Set the random color as the background color for the cell
           cell.style.backgroundColor = randomColor;
         }
-        // const timeRows = document.querySelectorAll("#schedTime tr");
-        // const randomColor = getRandomColor();
 
-        // timeRows.forEach((row) => {
-        //   const time = parseFloat(row.dataset.time);
-        //   if (time >= startHour && time < endHour) {
-        //     const cell = row.cells[dayColumnIndex];
-        //     const existingColor = cell.style.backgroundColor;
-        //     if (existingColor) {
-        //       if (time === startHour) {
-        //         cell.style.backgroundColor = randomColor;
-        //       }
-        //     } else {
-        //       // Set the random color as the background color for the cell
-        //       cell.style.backgroundColor = randomColor;
-        //     } // Add the course code only once for the given time slot
         if (time === startHour) {
           const courseCodeDiv = document.createElement("div");
           courseCodeDiv.classList.add("subject_name");
-          courseCodeDiv.textContent = courseCode;
+          if (courseCode == null) {
+            courseCodeDiv.textContent = "Regular Schedule";
+          } else {
+            courseCodeDiv.textContent = courseCode;
+          }
           cell.appendChild(courseCodeDiv);
 
           const yearLevelNameDiv = document.createElement("div");
           yearLevelNameDiv.classList.add("grade_and_section");
-          yearLevelNameDiv.textContent = yearLevelName;
+          yearLevelNameDiv.textContent = yearLevelName + " " + sectionName;
           cell.appendChild(yearLevelNameDiv);
 
-          const sectionNameDiv = document.createElement("div");
-          sectionNameDiv.classList.add("grade_and_section");
-          sectionNameDiv.textContent = sectionName;
-          cell.appendChild(sectionNameDiv);
+          // const sectionNameDiv = document.createElement("div");
+          // sectionNameDiv.classList.add("grade_and_section");
+          // sectionNameDiv.textContent = sectionName;
+          // cell.appendChild(sectionNameDiv);
 
           // const departmentNameDiv = document.createElement("div");
           // departmentNameDiv.classList.add("grade_and_section");

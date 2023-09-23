@@ -27,10 +27,7 @@ if ($role_id == 0 || $role_id == 1) {
     ?>
 
     <style>
-        #schedTime td {
-            border: none;
-            padding: 0.1rem;
-        }
+        #schedTime td {}
 
 
 
@@ -40,7 +37,6 @@ if ($role_id == 0 || $role_id == 1) {
             font-size: 12px;
             line-height: 1;
             padding: 1px;
-            margin-bottom: 5px;
             font-family: "Lucida Console", "Courier New", monospace;
         }
 
