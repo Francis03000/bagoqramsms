@@ -66,7 +66,8 @@
                     </div> -->
 
                     <div class="col">
-                        <button class="btn btn-primary btn-sm" id="download_excel">Download Data</button>
+                        <button class="btn btn-primary btn-sm" id="download_excel"><i class="fas fa-file-csv"></i>
+                            Download Data</button>
 
 
                     </div>

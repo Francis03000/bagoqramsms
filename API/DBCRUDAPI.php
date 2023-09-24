@@ -17,14 +17,41 @@ class DBCRUDAPI
         $this->mysqli = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
     }
 
+    // public function insert($table, $para = array())
+    // {
+    //     $table_columns = implode(',', array_keys($para));
+    //     $table_value = implode("','", $para);
+
+    //     $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
+
+    //     $result = $this->mysqli->query($sql);
+    // }
+
     public function insert($table, $para = array())
     {
         $table_columns = implode(',', array_keys($para));
-        $table_value = implode("','", $para);
+        $table_values = array_values($para);
 
-        $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
+        $value_placeholders = implode(',', array_fill(0, count($table_values), '?'));
 
-        $result = $this->mysqli->query($sql);
+        $sql = "INSERT INTO $table ($table_columns) VALUES ($value_placeholders)";
+
+        $stmt = $this->mysqli->prepare($sql);
+
+        if ($stmt === false) {
+            throw new Exception($this->mysqli->error);
+        }
+
+        $types = str_repeat('s', count($table_values));
+        $stmt->bind_param($types, ...$table_values);
+
+        if ($stmt->execute()) {
+            $stmt->close();
+            return true;
+        } else {
+            $stmt->close();
+            throw new Exception($this->mysqli->error);
+        }
     }
 
     public function update($table, $para = array(), $id)
@@ -32,15 +59,33 @@ class DBCRUDAPI
         $args = array();
 
         foreach ($para as $key => $value) {
-            $args[] = "$key = '$value'";
+            $args[] = "$key = '" . $this->mysqli->real_escape_string($value) . "'";
         }
 
-        $sql = "UPDATE  $table SET " . implode(',', $args);
+        $sql = "UPDATE $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
 
         $result = $this->mysqli->query($sql);
+        if ($this->mysqli->errno) {
+            throw new Exception($this->mysqli->error);
+        }
     }
+
+    // public function update($table, $para = array(), $id)
+    // {
+    //     $args = array();
+
+    //     foreach ($para as $key => $value) {
+    //         $args[] = "$key = '$value'";
+    //     }
+
+    //     $sql = "UPDATE  $table SET " . implode(',', $args);
+
+    //     $sql .= " WHERE $id";
+
+    //     $result = $this->mysqli->query($sql);
+    // }
 
     public function delete($table, $id)
     {

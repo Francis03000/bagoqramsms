@@ -88,9 +88,8 @@ if (isset($_GET['getData'])) {
     } else if (isset($_POST['delete'])) {
 
         $id = $_POST["id"];
-        $subject_name = $_POST["subject_name"];
 
-        $DBCRUDAPI->delete('subjects', "id='$id' AND subject_name='$subject_name'");
+        $DBCRUDAPI->delete('subjects', "id='$id' ");
         if ($DBCRUDAPI) {
             echo json_encode(array("success" => true));
         } else {
@@ -98,6 +97,19 @@ if (isset($_GET['getData'])) {
         }
 
     }
+    // else if (isset($_POST['delete'])) {
+
+    //     $id = $_POST["id"];
+    //     $subject_name = $_POST["subject_name"];
+
+    //     $DBCRUDAPI->delete('subjects', "id='$id' AND subject_name='$subject_name'");
+    //     if ($DBCRUDAPI) {
+    //         echo json_encode(array("success" => true));
+    //     } else {
+    //         echo json_encode(array("success" => false));
+    //     }
+
+    // }
 }
 
 

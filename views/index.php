@@ -170,7 +170,18 @@
                                 <tbody id="attendance_report">
                                 </tbody>
 
+
                             </table>
+                            <tfoot>
+                                <div class="col ">
+                                    <button style="float:right;" class="btn btn-primary btn-sm" id="download_excel"><i
+                                            class="fas fa-file-csv"></i>
+                                        Download Data</button>
+
+
+                                </div>
+                            </tfoot>
+
                         </div>
                     </div>
                 </div>
@@ -419,7 +430,16 @@
                 });
             });
 
+            $("#download_excel").click(function () {
+                var sheetName = prompt("Enter the sheet name:");
 
+                if (sheetName !== null && sheetName.trim() !== "") {
+                    var table2excel = new Table2Excel();
+                    table2excel.export(document.querySelectorAll("#excel_table"), sheetName);
+                }
+
+                $("#modalMain2").modal("hide");
+            });
 
 
         });

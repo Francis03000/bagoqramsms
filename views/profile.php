@@ -221,26 +221,35 @@
         $("#btn-mul").click(function () {
             var old_pass = $("#pass").val();
 
+
+
             var old_pass2 = myCiphher(old_pass);
 
 
 
-            // if (
-            //     $("#pass").val() === "" ||
-            //     $("#pass1").val() === "" ||
-            //     $("#pass2").val() === ""
-            // ) {
-            //     Swal.fire({
-            //         position: "text-center",
-            //         icon: "warning",
-            //         title: "Please fill in all required fields.",
-            //         showConfirmButton: false,
-            //         timer: 1500,
-            //     });
-            //     return;
-            // }
+            if (
+                $("#pass").val() === "" ||
+                $("#pass1").val() === "" ||
+                $("#pass2").val() === ""
+            ) {
+                Swal.fire({
+                    position: "text-center",
+                    icon: "warning",
+                    title: "Please fill in all required fields.",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                return;
+            }
 
             if (real_password != old_pass) {
+                Swal.fire({
+                    position: "text-center",
+                    icon: "error",
+                    title: "Old password does not match",
+                    showConfirmButton: false,
+                    timer: 3000,
+                })
                 passField.css('border-color', 'red');
 
 
@@ -279,11 +288,9 @@
                                 }).then(
                                     setTimeout(() => {
                                         window.location.href = "logout.php";
-
-
                                     }, 2000)
-
                                 );
+
                             }
                         },
                     })

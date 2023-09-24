@@ -95,7 +95,7 @@ $(document).ready(function () {
       $("<img>", {
         class: "rounded-circle img-fluid border border-secondary",
         style: "width: 120px; height: 120px; overflow: hidden;",
-
+        alt: "profile pic",
         src: `assets/img/profile/${teachers.email}/${teachers.user_img}`,
         onerror: "this.onerror=null;this.src='assets/img/user.jpg';",
       }).appendTo(tableRow);
@@ -566,4 +566,15 @@ $(document).ready(function () {
     $("#qr_image_modal").attr("src", qr_image);
     $("#btn-mul").hide();
   }
+
+  $("#download_excel").click(function () {
+    var sheetName = prompt("Enter the sheet name:");
+
+    if (sheetName !== null && sheetName.trim() !== "") {
+      var table2excel = new Table2Excel();
+      table2excel.export(document.querySelectorAll("#excel_table"), sheetName);
+    }
+
+    $("#modalMain2").modal("hide");
+  });
 });

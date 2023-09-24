@@ -75,7 +75,7 @@ if ($role_id == 0 || $role_id == 1) {
 
                     <div class="table-responsive">
 
-                        <table class=" table  table-striped table-success ">
+                        <table class=" table  table-striped table-success " id="excel_table">
                             <thead class=" bg-green">
                                 <tr>
                                     <th scope="col">#</th>
@@ -94,6 +94,16 @@ if ($role_id == 0 || $role_id == 1) {
                             </thead>
                             <tbody id="bamsmsTable"></tbody>
                         </table>
+                        <tfoot>
+                            <div class="col ">
+                                <button style="float:right;" class="btn btn-primary btn-sm" id="download_excel"><i
+                                        class="fas fa-file-csv"></i>
+                                    Download Data</button>
+
+
+                            </div>
+                        </tfoot>
+
                     </div>
 
                     <?php include('modals/userModal.php'); ?>
