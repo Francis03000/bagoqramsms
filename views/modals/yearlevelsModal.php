@@ -40,12 +40,6 @@
                         </div>
 
 
-
-
-                    </div>
-
-                    <div class="row">
-
                         <div class="form-group col-6">
                             <label class="col-form-label">Grade/Year Name</label>
                             <select class="form-control" name="yearlevel_name" id="yearlevel_name"
@@ -55,6 +49,15 @@
 
                             </select>
                         </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="row">
+
 
                         <div class="form-group col-6">
                             <label class="col-form-label">Room</label>

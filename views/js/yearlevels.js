@@ -167,8 +167,6 @@ $(document).ready(function () {
   });
 
   function update(index) {
-    $("#yearlevel_name").empty();
-
     $("#modalMain").modal("show");
     $("#modalMainLabel").html("Update Grade and Section");
     $("#method").attr("name", "update");
@@ -178,6 +176,7 @@ $(document).ready(function () {
     Object.keys(models).map((key) => {
       $(`[name='${key}']`).val(models[key]).attr("disabled", false);
     });
+
     $("#btn-mul").show();
     $("#btn-mul").attr("id", "updateData");
     $("#updateData").attr("name", "update");
@@ -200,6 +199,7 @@ $(document).ready(function () {
     });
   });
   // $("#modalMain").on("hide.bs.modal", function () {
+  // $("#yearlevel_name").empty();
   //   populateYN();
   // });
   function showDeleteConfirmation(id) {
