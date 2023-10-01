@@ -41,7 +41,7 @@
                         <li><a href="guardsTable"><span>Guard List</span></a></li>
                         <li><a href="staffsTable"><span>Staff List </span></a></li>
                     </ul>
-                </li> -->
+                    </li> -->
                     <li class="">
                         <a href="sectionsTable"><img src="assets/img/sidebar/knowledge.png" alt="icon"
                                 style="width: 28px"><span>Sections</span></a>
@@ -49,7 +49,7 @@
                     <!-- <li class="">
                     <a href="departmentsTable"><img src="assets/img/sidebar/department.png" alt="icon"
                             style="width: 28px"><span>Departments</span></a>
-                </li> -->
+                    </li> -->
                     <!-- <li class="">
                         <a href="strandsTable"><img src="assets/img/sidebar/department.png" alt="icon"
                                 style="width: 28px"><span>Strands</span></a>
@@ -70,7 +70,7 @@
                     <!-- <li class="">
                     <a href="teacherSchedulesTable"><img src="assets/img/sidebar/icon-8.png" alt="icon"><span>Teacher
                             Schedules</span></a>
-                </li> -->
+                    </li> -->
                     <li class="">
                         <a href="yearlevelsTable"><img src="assets/img/dash/dash-2.png" alt="icon"
                                 style="width: 28px"><span>Grades &
@@ -78,7 +78,7 @@
                     </li>
                     <!-- <li class="">
                     <a href="timeTable"><img src="assets/img/sidebar/icon-9.png" alt="icon"><span>Time</span></a>
-                </li> -->
+                    </li> -->
                     <li class="">
                         <a href="schedulesTable"><img src="assets/img/dash/sched.png" alt="icon"
                                 style="width: 28px"><span>Generate
@@ -89,11 +89,19 @@
                                 style="width: 28px"><span>Attendance
                             </span></a>
                     </li>
-                    <li class="">
-                        <a href="customization"><img src="assets/img/sidebar/settings.png" alt="icon"
-                                style="width: 28px"><span>Customization
-                            </span></a>
-                    </li>
+                    <?php
+                    if ($role_id == 0) {
+                        ?>
+                        <li class="">
+                            <a href="customization"><img src="assets/img/sidebar/settings.png" alt="icon"
+                                    style="width: 28px"><span>Customization
+                                </span></a>
+                        </li>
+
+                        <?php
+                    }
+                    ?>
+
 
 
                     <?php

@@ -2,7 +2,7 @@
 <?php
 $role_id = $_SESSION["userRoleId"];
 
-if ($role_id == 0 || $role_id == 1) {
+if ($role_id == 0) {
     // 
 
 
