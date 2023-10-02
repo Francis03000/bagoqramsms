@@ -116,9 +116,11 @@ if ($role_id == 0 || $role_id == 1) {
                                     <th scope="col">#</th>
                                     <th scope="col">Employee</th>
                                     <th scope="col">Time In</th>
+                                    <th scope="col">Afternoon Out</th>
+                                    <th scope="col">Afternoon In</th>
                                     <th scope="col">Time Out</th>
-                                    <th scope="col">Remarks In</th>
-                                    <th scope="col">Remarks Out</th>
+                                    <!-- <th scope="col">Remarks In</th> -->
+                                    <!-- <th scope="col">Remarks Out</th> -->
                                     <th scope="col">Status</th>
                                     <th scope="col">Attendance Date</th>
                                     <th scope="col">Action</th>

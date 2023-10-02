@@ -43,10 +43,12 @@
 
                         <thead class="bg-light">
                             <tr>
-                                <th>Time In</th>
-                                <th>Remarks In</th>
-                                <th>Time Out</th>
-                                <th>Remarks Out </th>
+                                <th scope="col">Time In</th>
+                                <th scope="col">Afternoon Out</th>
+                                <th scope="col">Afternoon In</th>
+                                <th scope="col">Time Out</th>
+                                <!-- <th scope="col">Remarks In</th> -->
+                                <!-- <th scope="col">Remarks Out</th> -->
                                 <th>Status</th>
                                 <th>Date</th>
                             </tr>

@@ -206,142 +206,214 @@ $(document).ready(function () {
                 } else {
                   data.forEach((logs) => {
                     $time_out = logs.time_out;
+                    $time_outa = logs.time_out2;
+
                     $time_in = logs.time_in;
+                    $time_ina = logs.time_in2;
                   });
-                  if ($time_out == "") {
-                    const currentTime = new Date();
-                    const [
-                      timeInHours,
-                      timeInMinutes,
-                      timeInSeconds,
-                      timeInPeriod,
-                    ] = $time_in.split(/:| /);
+                  const timeOut = new Date().toLocaleTimeString();
 
-                    let hoursOffset = 0;
-                    if (timeInPeriod === "PM" && parseInt(timeInHours) !== 12) {
-                      hoursOffset = 12;
-                    } else if (
-                      timeInPeriod === "AM" &&
-                      parseInt(timeInHours) === 12
-                    ) {
-                      hoursOffset = -12;
-                    }
-                    const currentDayIndex = (new Date().getDay() + 6) % 7;
+                  if (currentHour >= 11 && currentHour < 14) {
+                    if ($time_outa == "") {
+                      setTimeout(() => {
+                        swal
+                          .fire({
+                            icon: "success",
+                            title: "Afternoon Out",
+                            text: "Name " + $full_name,
+                            showConfirmButton: false,
+                            timer: 3000,
+                          })
+                          .then(
+                            $.post({
+                              url: "../controllers/attendance/attendanceCrud.php",
+                              data: {
+                                update2: "update2",
+                                user_id: $user_id,
+                                time_out: timeOut,
+                                attendance_date: formattedDate,
+                              },
+                              success: function (data) {
+                                $("#bamsmsTable").empty();
 
-                    const timeInDate = new Date();
-                    timeInDate.setHours(parseInt(timeInHours) + hoursOffset);
-                    timeInDate.setMinutes(parseInt(timeInMinutes));
-                    timeInDate.setSeconds(parseInt(timeInSeconds));
+                                getAllData();
 
-                    const timeDifferenceMillis = currentTime - timeInDate;
-                    const timeDifferenceMinutes =
-                      timeDifferenceMillis / 1000 / 60;
-
-                    if (timeDifferenceMinutes > 0.5) {
-                      const timeOut = new Date().toLocaleTimeString();
-                      const status = "Present";
-
-                      $.get({
-                        url: "../controllers/attendance/attendanceCrud.php",
-                        data: {
-                          getDataDayTime: "getDataDayTime",
-                          user_id: $user_id,
-                          sample_day: currentDayIndex,
-                        },
-                        contentType: "application/json",
-                        success: function (data) {
-                          var newData = JSON.parse(data);
-
-                          newData.forEach((data_time_day) => {
-                            $highest_time_end = data_time_day.highest_time_end;
-
-                            if ($highest_time_end !== null) {
-                              const currentTime = new Date().toLocaleTimeString(
-                                "en-US",
-                                {
-                                  hour12: false,
-                                }
-                              );
-                              function timeToMinutes(time) {
-                                const [hours, minutes] = time
-                                  .split(":")
-                                  .map(Number);
-                                return hours * 60 + minutes;
-                              }
-
-                              const currentTimeMinutes =
-                                timeToMinutes(currentTime);
-
-                              const highestEndMinutes =
-                                timeToMinutes($highest_time_end);
-
-                              const timeDifferenceInMinutes =
-                                currentTimeMinutes - highestEndMinutes;
-
-                              if (timeDifferenceInMinutes < -1) {
-                                $remarksOut = "Early Time out ";
-                              } else if (timeDifferenceInMinutes < 0) {
-                                $remarksOut = "On time time out";
-                              } else {
-                                $remarksOut = "Right Time out";
-                              }
-                            } else {
-                              $remarksOut = "Time-out";
-                            }
-                          });
-
-                          setTimeout(() => {
-                            swal
-                              .fire({
-                                icon: "success",
-                                title: "Attendance Out",
-                                text: "Name " + $full_name,
-                                showConfirmButton: false,
-                                timer: 3000,
-                              })
-                              .then(
-                                $.post({
-                                  url: "../controllers/attendance/attendanceCrud.php",
-                                  data: {
-                                    update: "update",
-                                    user_id: $user_id,
-                                    time_out: timeOut,
-                                    remarks_out: $remarksOut,
-                                    stats: status,
-                                    attendance_date: formattedDate,
-                                  },
-                                  success: function (data) {
-                                    $("#bamsmsTable").empty();
-
-                                    getAllData();
-
-                                    $("#qr_code").val("");
-                                  },
-                                })
-                              );
-                          }, 100);
-                        },
-                      });
+                                $("#qr_code").val("");
+                              },
+                            })
+                          );
+                      }, 100);
                     } else {
-                      swal.fire({
-                        icon: "warning",
-                        title: "Too Early to timeout",
-                        text: "You Need to stay in the school atleast 30 minutes before you time out ",
-                        timer: 3000,
-                      });
+                      if ($time_ina == "") {
+                        setTimeout(() => {
+                          swal
+                            .fire({
+                              icon: "success",
+                              title: "Afternoon In",
+                              text: "Name " + $full_name,
+                              showConfirmButton: false,
+                              timer: 3000,
+                            })
+                            .then(
+                              $.post({
+                                url: "../controllers/attendance/attendanceCrud.php",
+                                data: {
+                                  update3: "update3",
+                                  user_id: $user_id,
+                                  time_in: timeOut,
+                                  attendance_date: formattedDate,
+                                },
+                                success: function (data) {
+                                  $("#bamsmsTable").empty();
+
+                                  getAllData();
+
+                                  $("#qr_code").val("");
+                                },
+                              })
+                            );
+                        }, 100);
+                      }
                     }
-                  } else {
-                    setTimeout(() => {
-                      swal
-                        .fire({
+                  }
+
+                  if (currentHour > 14 || $time_ina != "") {
+                    if ($time_out == "") {
+                      const currentTime = new Date();
+                      const [
+                        timeInHours,
+                        timeInMinutes,
+                        timeInSeconds,
+                        timeInPeriod,
+                      ] = $time_in.split(/:| /);
+
+                      let hoursOffset = 0;
+                      if (
+                        timeInPeriod === "PM" &&
+                        parseInt(timeInHours) !== 12
+                      ) {
+                        hoursOffset = 12;
+                      } else if (
+                        timeInPeriod === "AM" &&
+                        parseInt(timeInHours) === 12
+                      ) {
+                        hoursOffset = -12;
+                      }
+                      const currentDayIndex = (new Date().getDay() + 6) % 7;
+
+                      const timeInDate = new Date();
+                      timeInDate.setHours(parseInt(timeInHours) + hoursOffset);
+                      timeInDate.setMinutes(parseInt(timeInMinutes));
+                      timeInDate.setSeconds(parseInt(timeInSeconds));
+
+                      const timeDifferenceMillis = currentTime - timeInDate;
+                      const timeDifferenceMinutes =
+                        timeDifferenceMillis / 1000 / 60;
+
+                      if (timeDifferenceMinutes > 0.5) {
+                        const status = "Present";
+
+                        $.get({
+                          url: "../controllers/attendance/attendanceCrud.php",
+                          data: {
+                            getDataDayTime: "getDataDayTime",
+                            user_id: $user_id,
+                            sample_day: currentDayIndex,
+                          },
+                          contentType: "application/json",
+                          success: function (data) {
+                            var newData = JSON.parse(data);
+
+                            newData.forEach((data_time_day) => {
+                              $highest_time_end =
+                                data_time_day.highest_time_end;
+
+                              if ($highest_time_end !== null) {
+                                const currentTime =
+                                  new Date().toLocaleTimeString("en-US", {
+                                    hour12: false,
+                                  });
+                                function timeToMinutes(time) {
+                                  const [hours, minutes] = time
+                                    .split(":")
+                                    .map(Number);
+                                  return hours * 60 + minutes;
+                                }
+
+                                const currentTimeMinutes =
+                                  timeToMinutes(currentTime);
+
+                                const highestEndMinutes =
+                                  timeToMinutes($highest_time_end);
+
+                                const timeDifferenceInMinutes =
+                                  currentTimeMinutes - highestEndMinutes;
+
+                                if (timeDifferenceInMinutes < -1) {
+                                  $remarksOut = "Early Time out ";
+                                } else if (timeDifferenceInMinutes < 0) {
+                                  $remarksOut = "On time time out";
+                                } else {
+                                  $remarksOut = "Right Time out";
+                                }
+                              } else {
+                                $remarksOut = "Time-out";
+                              }
+                            });
+
+                            setTimeout(() => {
+                              swal
+                                .fire({
+                                  icon: "success",
+                                  title: "Attendance Out",
+                                  text: "Name " + $full_name,
+                                  showConfirmButton: false,
+                                  timer: 3000,
+                                })
+                                .then(
+                                  $.post({
+                                    url: "../controllers/attendance/attendanceCrud.php",
+                                    data: {
+                                      update: "update",
+                                      user_id: $user_id,
+                                      time_out: timeOut,
+                                      remarks_out: $remarksOut,
+                                      stats: status,
+                                      attendance_date: formattedDate,
+                                    },
+                                    success: function (data) {
+                                      $("#bamsmsTable").empty();
+
+                                      getAllData();
+
+                                      $("#qr_code").val("");
+                                    },
+                                  })
+                                );
+                            }, 100);
+                          },
+                        });
+                      } else {
+                        swal.fire({
                           icon: "warning",
-                          title:
-                            "You have already timed-in and timed-out today",
-                          showConfirmButton: false,
+                          title: "Too Early to timeout",
+                          text: "You Need to stay in the school atleast 30 minutes before you time out ",
                           timer: 3000,
-                        })
-                        .then($("#qr_code").val(""));
-                    }, 100);
+                        });
+                      }
+                    } else {
+                      setTimeout(() => {
+                        swal
+                          .fire({
+                            icon: "warning",
+                            title:
+                              "You have already timed-in and timed-out today",
+                            showConfirmButton: false,
+                            timer: 3000,
+                          })
+                          .then($("#qr_code").val(""));
+                      }, 100);
+                    }
                   }
                 }
               },
@@ -411,16 +483,24 @@ $(document).ready(function () {
       }).appendTo(tableRow);
       $("<td>", {
         class: "text-wrap",
+        html: attendance_logs.time_out2,
+      }).appendTo(tableRow);
+      $("<td>", {
+        class: "text-wrap",
+        html: attendance_logs.time_in2,
+      }).appendTo(tableRow);
+      $("<td>", {
+        class: "text-wrap",
         html: attendance_logs.time_out,
       }).appendTo(tableRow);
-      $("<td>", {
-        class: "text-wrap",
-        html: attendance_logs.remarks_in,
-      }).appendTo(tableRow);
-      $("<td>", {
-        class: "text-wrap",
-        html: attendance_logs.remarks_out,
-      }).appendTo(tableRow);
+      // $("<td>", {
+      //   class: "text-wrap",
+      //   html: attendance_logs.remarks_in,
+      // }).appendTo(tableRow);
+      // $("<td>", {
+      //   class: "text-wrap",
+      //   html: attendance_logs.remarks_out,
+      // }).appendTo(tableRow);
 
       if (attendance_logs.status === "Incomplete") {
         $color = "text-warning";
@@ -473,12 +553,12 @@ $(document).ready(function () {
         id: "view",
         html: "",
       }).appendTo(tableData);
-      $("<button>", {
-        class: "btn btn-warning mx-1 far fa-edit ",
-        "data-id": i,
-        id: "edit",
-        html: "",
-      }).appendTo(tableData);
+      // $("<button>", {
+      //   class: "btn btn-warning mx-1 far fa-edit ",
+      //   "data-id": i,
+      //   id: "edit",
+      //   html: "",
+      // }).appendTo(tableData);
       // $("<button>", {
       //   class: "btn btn-danger mx-1 far fa-trash-alt ",
       //   "data-id": attendance_logs.id,
@@ -593,16 +673,25 @@ $(document).ready(function () {
         }).appendTo(tableRow);
         $("<td>", {
           class: "text-wrap",
-          html: user.remarks_in,
+          html: user.time_out2,
         }).appendTo(tableRow);
+        $("<td>", {
+          class: "text-wrap",
+          html: user.time_in2,
+        }).appendTo(tableRow);
+
         $("<td>", {
           class: "text-wrap",
           html: user.time_out,
         }).appendTo(tableRow);
-        $("<td>", {
-          class: "text-wrap",
-          html: user.remarks_out,
-        }).appendTo(tableRow);
+        // $("<td>", {
+        //   class: "text-wrap",
+        //   html: user.remarks_in,
+        // }).appendTo(tableRow);
+        // $("<td>", {
+        //   class: "text-wrap",
+        //   html: user.remarks_out,
+        // }).appendTo(tableRow);
         if (user.status === "Incomplete") {
           $color = "text-warning";
         } else if (user.status === "Present") {
