@@ -50,27 +50,27 @@ if (isset($_GET['getData'])) {
         $password = $_POST["password"];
         $dec_password = $_POST["dec_password"];
 
-        $mail = new PHPMailer(true);
+        // $mail = new PHPMailer(true);
 
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'francisdeleon872@gmail.com';
-        $mail->Password = 'ayeyfgqrsfbvvsde';
-        $mail->SMTPSecure = 'ssl';
-        $mail->Port = 465;
+        // $mail->isSMTP();
+        // $mail->Host = 'smtp.gmail.com';
+        // $mail->SMTPAuth = true;
+        // $mail->Username = 'francisdeleon872@gmail.com';
+        // $mail->Password = 'ayeyfgqrsfbvvsde';
+        // $mail->SMTPSecure = 'ssl';
+        // $mail->Port = 465;
 
-        $mail->setFrom('francisdeleon872@gmail.com');
+        // $mail->setFrom('francisdeleon872@gmail.com');
 
-        $mail->addAddress($_POST["email"]);
+        // $mail->addAddress($_POST["email"]);
 
-        $mail->isHTML(true);
+        // $mail->isHTML(true);
 
-        $mail->Name = "QRAMSMS Account Password";
-        $mail->Subject = "QRAMSMS Account Password";
-        $mail->Body = "Your password: " . $_POST["dec_password"];
+        // $mail->Name = "QRAMSMS Account Password";
+        // $mail->Subject = "QRAMSMS Account Password";
+        // $mail->Body = "Your password: " . $_POST["dec_password"];
 
-        $mail->send();
+        // $mail->send();
 
 
         if (!file_exists("../../views/assets/img/profile/" . $email . "")) {
@@ -125,7 +125,7 @@ if (isset($_GET['getData'])) {
         QRcode::png($codeContents, $tempDir . '' . $filename, QR_ECLEVEL_L, 5);
 
         // Your logo file
-        $logoFile = 'sto-logo.png';
+        $logoFile = 'fc-logo.png';
 
         // Load the QR code image
         $qrImage = imagecreatefrompng($tempDir . $filename);
