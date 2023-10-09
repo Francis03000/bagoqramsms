@@ -213,7 +213,7 @@ $(document).ready(function () {
                   });
                   const timeOut = new Date().toLocaleTimeString();
 
-                  if (currentHour >= 11 && currentHour < 14) {
+                  if (currentHour >= 11 && currentHour <= 14) {
                     if ($time_outa == "") {
                       setTimeout(() => {
                         swal

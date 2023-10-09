@@ -88,9 +88,10 @@ if (isset($_GET['getData'])) {
         $time_out = $_POST["time_out"];
         $user_id = $_POST["user_id"];
         $attendance_date = $_POST["attendance_date"];
+        $status = 'Present';
 
 
-        $DBCRUDAPI->update('attendance_log', ['time_out2' => $time_out], "user_id = '$user_id' AND attendance_date = '$attendance_date' ");
+        $DBCRUDAPI->update('attendance_log', ['time_out2' => $time_out, 'status' => $status,], "user_id = '$user_id' AND attendance_date = '$attendance_date' ");
         if ($DBCRUDAPI) {
             echo json_encode(array("success" => true));
         } else {
