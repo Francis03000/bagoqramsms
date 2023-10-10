@@ -20,6 +20,7 @@
 
   <!-- Style -->
   <link rel="stylesheet" href="css/style.css">
+  <script src="../views/assets/js/insta_scan.js"></script>
 
   <title>QRAMSMS</title>
 
@@ -31,6 +32,19 @@
     exit();
   }
   ?>
+
+  <style>
+    .active-button {
+      transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .active-button.active {
+      background-color: #2a9fd6;
+      /* More noticeable color */
+      box-shadow: 0 5px 8px rgba(0, 0, 0, 0.8);
+      /* More pronounced shadow */
+    }
+  </style>
 </head>
 
 <body style="background-color: cyan;">
@@ -42,11 +56,30 @@
         <div class="col col-xl-10">
           <div class="card" style="border-radius: 1rem;">
             <div class="row g-0">
-              <div class="col-md-6 col-lg-5 d-none d-md-block text-center">
-                <div class="d-flex  align-items-center justify-content-center"
-                  style="height: 100%; margin-left: 10px ; ">
-                  <img alt="login logo" id="myImage" class=" rounded-circle img-fluid"
-                    style="max-width: 100%; height: auto;" />
+              <div class="col-md-4 mx-auto my-5 col-lg-4 d-none d-md-block text-center">
+                <div class="d-flex  align-items-center justify-content-center">
+                  <button class=" form-control text-light bg-green fas fa-archive active-button active"
+                    id="scan_qr_code">SCAN QR CODE</button>
+                  <button class="form-control text-light bg-warning fas fa-archive  active-button active"
+                    id="hide_qr_code">HIDE QR CODE</button>
+                </div>
+
+
+                <div class="d-flex mt-5  align-items-center justify-content-center" style=" margin-left: 10px ; ">
+
+                  <img alt=" login logo" id="myImage" class=" rounded-circle img-fluid" style="max-width: 100%;" />
+
+
+                  <video id="preview" class="w-100 mt-5 " style="max-width: 100%;"></video>
+
+
+
+
+                </div>
+
+                <div>
+                  <button type="button" class="btn btn-success mt-5" id="done"> <i class="fas fa-check"></i>Attendance
+                    Completed</button>
                 </div>
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -123,12 +156,18 @@
       </div>
     </div>
   </div> -->
-  <script src="js/jquery-3.3.1.min.js"></script>
+  <!-- <script src="js/jquery-3.3.1.min.js"></script> -->
+  <script src="../views/assets/js/jquery-3.6.0.min.js"></script>
+
   <script src="../views/assets/js/sweetalert2.all.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
+
   <script type="module" src="authentication/auth.js"></script>
+  <script src="authentication/attend.js"></script>
+
+
 </body>
 
 </html>

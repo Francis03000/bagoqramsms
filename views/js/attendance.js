@@ -60,33 +60,33 @@ $(document).ready(function () {
   if (currentHour >= 18) {
     done();
   }
-  $("#hide_qr_code").hide();
+  $("#preview").hide();
+
   let scanner = new Instascan.Scanner({
     video: document.getElementById("preview"),
   });
-
   $("#scan_qr_code").on("click", function () {
-    Instascan.Camera.getCameras()
-      .then(function (cameras) {
-        if (cameras.length > 0) {
-          scanner.start(cameras[0]);
-        } else {
-          alert("No cameras found");
-        }
-      })
-      .catch(function (e) {
-        console.error(e);
-      });
+    $("#preview").show();
 
-    // $("#hide_qr_code").show();
+    Instascan.Camera.getCameras().then(function (cameras) {
+      if (cameras.length > 0) {
+        scanner.start(cameras[0]);
+      } else {
+        alert("No cameras found");
+      }
+    });
+    $("#hide_qr_code").show();
+
     $("#scan_qr_code").hide();
   });
-  // $("#hide_qr_code").on("click", function () {
-  //   scanner.stop();
-  //   scanner.video.remove();
-  //   $("#scan_qr_code").show();
-  //   $("#hide_qr_code").hide();
-  // });
+  $("#hide_qr_code").hide();
+
+  $("#hide_qr_code").on("click", function () {
+    $("#preview").hide();
+    // scanner.video.hide();
+    $("#scan_qr_code").show();
+    $("#hide_qr_code").hide();
+  });
   const days = [0, 1, 2, 3, 4, 5];
 
   scanner.addListener("scan", function (c) {
