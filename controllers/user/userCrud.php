@@ -28,7 +28,7 @@ if (isset($_GET['getData'])) {
     }
     echo json_encode($res);
 } else if (isset($_GET['getDataInac'])) {
-    $DBCRUDAPI->selectleftjoin("users", "roles", "id", "role_id", ["users.*", "roles.display_name"], "users.role_id != 1 AND status = 'inactive'");
+    $DBCRUDAPI->selectleftjoin("users", "roles", "id", "role_id", ["users.*", "roles.display_name"], "users.role_id != 0 AND status = 'inactive'");
     $data = $DBCRUDAPI->sql;
     $res = array();
     while ($datass = mysqli_fetch_assoc($data)) {

@@ -133,7 +133,7 @@ $(document).ready(function () {
       let tableData = $("<td>", { class: "text-wrap" });
 
       $("<button>", {
-        class: "btn btn-success mx-1 fa fa-eye ",
+        class: "btn btn-success mx-1 fas fa-qrcode ",
         "data-id": i,
         id: "view",
         html: "",
