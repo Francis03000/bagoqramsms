@@ -102,7 +102,7 @@ if ($role_id == 0 || $role_id == 1) {
 
                     </div>
                     <hr>
-                    <div class="row">
+                    <!-- <div class="row">
 
 
                         <div class="col">
@@ -113,7 +113,7 @@ if ($role_id == 0 || $role_id == 1) {
 
 
 
-                    </div>
+                    </div> -->
                 </div>
 
 

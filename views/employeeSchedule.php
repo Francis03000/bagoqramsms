@@ -132,7 +132,7 @@ if ($role_id == 0 || $role_id == 1) {
 
                     <hr>
 
-                    <button class="btn btn-primary btn-sm" id="printSched">PRINT SCHEDULE</button>
+                    <!-- <button class="btn btn-primary btn-sm" id="printSched">PRINT SCHEDULE</button> -->
 
                 </div>
             </div>

@@ -14,6 +14,8 @@ if (isset($_POST['loginUser'])) {
     $res = array();
     while ($datass = mysqli_fetch_assoc($data)) {
         $_SESSION['userFullname'] = strtoupper($datass['fname'] . " " . $datass['mname'] . " " . $datass['lname']);
+        $_SESSION['lName'] = strtoupper($datass['lname']);
+
         $_SESSION['userRoleName'] = $datass['display_name'];
         $_SESSION['userRoleId'] = $datass['role_id'];
         $_SESSION['user_active_id'] = $datass['id'];

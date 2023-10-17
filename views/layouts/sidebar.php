@@ -23,11 +23,15 @@
 
                 if ($role_id == 0 || $role_id == 1) { ?>
 
-
-                    <li class="">
-                        <a href="rolesTable"><img src="assets/img/sidebar/businessman.png" alt="icon"
-                                style="width: 28px"><span>Roles</span></a>
-                    </li>
+                    <?php
+                    if ($role_id == 0) { ?>
+                        <li class="">
+                            <a href="rolesTable"><img src="assets/img/sidebar/businessman.png" alt="icon"
+                                    style="width: 28px"><span>Roles</span></a>
+                        </li>
+                        <?php
+                    }
+                    ?>
 
                     <li class="">
                         <a href="userTable"><img src="assets/img/sidebar/team.png" alt="icon"

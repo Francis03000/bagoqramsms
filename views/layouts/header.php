@@ -33,6 +33,9 @@
 
             $user_img = $_SESSION["userImage"];
 
+            $name = $_SESSION["lName"];
+
+
             ?>
 
             <li class="nav-item dropdown has-arrow">
@@ -41,7 +44,9 @@
                             src="assets/img/profile/<?php echo $email ?>/<?php echo $user_img ?>" width="50" height="45"
                             alt="Admin Picture">
                         <span class="status online"></span></span>
-                    <span> Admin</span>
+                    <span>
+                        <?php echo $name ?>
+                    </span>
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="profile.php">My Profile</a>

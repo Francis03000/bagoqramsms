@@ -94,7 +94,7 @@ if ($role_id == 0 || $role_id == 1) {
                             </thead>
                             <tbody id="bamsmsTable"></tbody>
                         </table>
-                        <tfoot>
+                        <!-- <tfoot>
                             <div class="col ">
                                 <button style="float:right;" class="btn btn-primary btn-sm" id="download_excel"><i
                                         class="fas fa-file-csv"></i>
@@ -102,7 +102,7 @@ if ($role_id == 0 || $role_id == 1) {
 
 
                             </div>
-                        </tfoot>
+                        </tfoot> -->
 
                     </div>
 
