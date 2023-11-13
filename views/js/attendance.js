@@ -568,6 +568,8 @@ $(document).ready(function () {
       tableData.appendTo(tableRow);
       table.append(tableRow);
     });
+
+    $("#data_table").DataTable();
   }
 
   $("#add-new").click(function () {
@@ -1021,7 +1023,7 @@ $(document).ready(function () {
       let newData = JSON.parse(data);
       newData.forEach((custom, i) => {
         $("#school_logo").attr("src", `../views/assets/img/${custom.logo}`);
-        $("#school_logo2").attr("src", `../views/assets/img/${custom.logo}`);
+        // $("#school_logo2").attr("src", `../views/assets/img/${custom.logo}`);
 
         $("#school_name").html(custom.school_name);
         $("#school_address").html(custom.school_address);

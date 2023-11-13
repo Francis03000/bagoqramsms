@@ -62,6 +62,8 @@ $(document).ready(function () {
           tableData.appendTo(tableRow);
           table.append(tableRow);
         });
+
+        $("#data_table").DataTable();
       },
     });
   }

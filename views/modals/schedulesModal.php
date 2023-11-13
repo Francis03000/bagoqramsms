@@ -18,7 +18,7 @@
                     <input type="hidden" id="method" name="update">
                     <input type="hidden" name="class_schedules_id" id="class_schedules_id">
                     <div class="form-group col-6 mx-auto d-block">
-                        <label class="col-form-label ">Sched_Type</label>
+                        <label class="col-form-label ">Schedule Type</label>
                         <select class="form-control" name="type" id="type" style="border-color: #606060">
                             <option value="">Choose Type</option>
                             <option value="yes">Teaching Employee</option>
@@ -65,9 +65,9 @@
 
 
                         <div class="form-group col-6">
-                            <label class="col-form-label ">Semester/Grading</label>
+                            <label class="col-form-label ">Quarter</label>
                             <select class="form-control  " name="sem" id="sem" style="border-color: #606060">
-                                <option value="">Choose Semester/Grading</option>
+                                <option value="">Choose Quarter</option>
                                 <option value="1st">1st</option>
                                 <option value="2nd">2nd</option>
                                 <option value="3rd">3rd</option>

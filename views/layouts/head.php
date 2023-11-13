@@ -19,13 +19,24 @@
 
   <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
 
+
+
+
   <link rel="stylesheet" href="assets/plugins/morris/morris.css">
 
   <link rel="stylesheet" href="assets/css/style.css">
+
   <script src="assets/js/jquery-3.6.0.min.js"></script>
   <script src="assets/js/sweetalert2.all.min.js"></script>
   <script src="assets/js/insta_scan.js"></script>
   <script src="assets/js/table2excel.js"></script>
+  <script src="assets/js/datatable.min.js"></script>
+
+  <script src="assets/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+
 
 
   <!--[if lt IE 9]>

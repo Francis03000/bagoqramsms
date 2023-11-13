@@ -6,7 +6,7 @@
             <img src="assets/img/sidebar/icon-21.png" alt="">
         </a>
 
-        <ul class="nav float-left">
+        <!-- <ul class="nav float-left">
             <li>
                 <div class="top-nav-search">
                     <a href="javascript:void(0);" class="responsive-search">
@@ -22,7 +22,7 @@
                 <a href="index" class="mobile-logo d-md-block d-lg-none d-block"><img src="assets/img/finger_logo.png"
                         alt="" width="30" height="30"></a>
             </li>
-        </ul>
+        </ul> -->
 
 
 

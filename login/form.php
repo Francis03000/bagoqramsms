@@ -111,7 +111,7 @@
                     <div class="pt-1 mb-4">
                       <button class="btn btn-dark btn-lg btn-block" type="button" id="loginUser">Login</button>
                     </div>
-                    <a class="small text-muted" href="#!">Forgot password?</a>
+                    <!-- <a class="small text-muted" href="#!">Forgot password?</a> -->
                   </form>
                 </div>
               </div>

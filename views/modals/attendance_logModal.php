@@ -19,8 +19,8 @@
                             <p class="font-weight-bold h5" id="school_address"></p>
                             <p class="font-weight-bold h5" id="school_id"></p>
                         </center>
-                        <img id="school_logo2" alt="school_logo" src="assets/img/school_logo.jpg" class="img-thumbnail"
-                            style="width:100px;">
+                        <img id="school_logo2" alt="school_logo" src="../views/assets/img/deped_logo.png"
+                            class="img-thumbnail" style="width:100px;">
                     </div>
                     <hr>
                     <div class="row">

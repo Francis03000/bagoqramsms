@@ -62,7 +62,7 @@
 
             <div class="row">
 
-                <div class="col-lg-6 d-flex">
+                <div class="col-lg-12 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="row align-items-center">
@@ -81,7 +81,7 @@
                 </div>
 
 
-                <div class="col-lg-6 d-flex">
+                <!-- <div class="col-lg-12 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="row align-items-center">
@@ -97,7 +97,9 @@
                             <div id="chart1"></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
+
 
 
 
@@ -171,7 +173,9 @@
                                 </tbody>
 
 
+
                             </table>
+
                             <tfoot>
                                 <div class="col ">
                                     <button style="float:right;" class="btn btn-primary btn-sm" id="download_excel"><i
@@ -181,6 +185,7 @@
 
                                 </div>
                             </tfoot>
+
 
                         </div>
                     </div>
@@ -291,6 +296,7 @@
             }
 
             function populateAttendance(data) {
+
                 $("#attendance_report").empty();
                 let table = $("#attendance_report");
                 let newData = JSON.parse(data);
@@ -362,6 +368,8 @@
                         table.append(tableRow);
                     }
                 });
+                $("#excel_table").DataTable();
+
             }
 
 
@@ -430,16 +438,17 @@
                 });
             });
 
-            $("#download_excel").click(function () {
-                var sheetName = prompt("Enter the sheet name:");
+            // $("#download_excel").click(function () {
+            //     var sheetName = prompt("Enter the sheet name:");
 
-                if (sheetName !== null && sheetName.trim() !== "") {
-                    var table2excel = new Table2Excel();
-                    table2excel.export(document.querySelectorAll("#excel_table"), sheetName);
-                }
+            //     if (sheetName !== null && sheetName.trim() !== "") {
+            //         var table2excel = new Table2Excel();
+            //         table2excel.export(document.querySelectorAll("#excel_table"), sheetName);
+            //     }
 
-                $("#modalMain2").modal("hide");
-            });
+            //     $("#modalMain2").modal("hide");
+            // });
+
 
 
         });

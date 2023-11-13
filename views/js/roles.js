@@ -36,12 +36,7 @@ $(document).ready(function () {
 
           // buttons action
           let tableData = $("<td>", { class: "text-wrap" });
-          // $("<button>", {
-          //   class: "btn btn-success mx-1 fa fa-eye ",
-          //   "data-id": i,
-          //   id: "view",
-          //   html: "",
-          // }).appendTo(tableData);
+
           $("<button>", {
             class: "btn btn-warning mx-1 far fa-edit ",
             "data-id": i,
@@ -57,6 +52,8 @@ $(document).ready(function () {
           tableData.appendTo(tableRow);
           table.append(tableRow);
         });
+
+        // $("#data_table").DataTable();
       },
     });
   }

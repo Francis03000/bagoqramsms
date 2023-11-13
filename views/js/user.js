@@ -102,6 +102,11 @@ $(document).ready(function () {
       $("<td>", {
         class: "text-wrap",
         html: teachers.fname,
+        hidden: "",
+      }).appendTo(tableRow);
+      $("<td>", {
+        class: "text-wrap",
+        html: teachers.fname,
       }).appendTo(tableRow);
       $("<td>", {
         class: "text-wrap",
@@ -164,6 +169,8 @@ $(document).ready(function () {
       tableData.appendTo(tableRow);
       table.append(tableRow);
     });
+
+    $("#data_table").DataTable();
   }
 
   function populateUnarchiveTable() {
@@ -183,6 +190,12 @@ $(document).ready(function () {
 
             src: `assets/img/profile/${teachers.email}/${teachers.user_img}`,
             onerror: "this.onerror=null;this.src='assets/img/user.jpg';",
+          }).appendTo(tableRow);
+
+          $("<td>", {
+            class: "text-wrap",
+            html: teachers.fname,
+            hidden: "",
           }).appendTo(tableRow);
           $("<td>", {
             class: "text-wrap",
@@ -234,6 +247,8 @@ $(document).ready(function () {
           tableData.appendTo(tableRow);
           table.append(tableRow);
         });
+
+        $("#data_table").DataTable();
       },
     });
   }

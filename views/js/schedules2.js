@@ -478,6 +478,8 @@ $(document).ready(function () {
         table.append(tableRow);
       }
     });
+
+    $("#data_table").DataTable();
   }
   $("#back_btn").click(function () {
     $("#bamsmsTable").empty();
@@ -631,6 +633,8 @@ $(document).ready(function () {
             table.append(tableRow);
           }
         });
+
+        $("#data_table").DataTable();
       },
     });
   }
@@ -767,6 +771,8 @@ $(document).ready(function () {
             table.append(tableRow);
           }
         });
+
+        $("#data_table").DataTable();
       },
     });
   }
@@ -804,7 +810,7 @@ $(document).ready(function () {
               date.year +
               " " +
               date.sem +
-              " period/sem" +
+              " quarter" +
               "";
             ("</option>");
           });
@@ -995,21 +1001,30 @@ $(document).ready(function () {
       success: function (data) {
         var data = JSON.parse(data);
         if (data.length != 0) {
+          // Swal.fire({
+          //   title: "Overlapping Schedule!?",
+          //   text: "The time you choose is already given to the employee or the grade that you choose!",
+          //   icon: "warning",
+          //   showCancelButton: true,
+          //   confirmButtonColor: "#DD6B55",
+          //   confirmButtonText: "Yes, Add it!",
+          //   cancelButtonText: "Cancel",
+          //   reverseButtons: true,
+          // }).then((result) => {
+          //   if (result.isConfirmed) {
+          //     addSched();
+          //   } else if (result.dismiss === Swal.DismissReason.cancel) {
+          //     Swal.fire("Cancelled", "Adding Schedule Cancelled:)", "error");
+          //   }
+          // });
+
           Swal.fire({
-            title: "Overlapping Schedule!?",
-            text: "The time you choose is already given to the employee or the grade that you choose!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Add it!",
-            cancelButtonText: "Cancel",
-            reverseButtons: true,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              addSched();
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              Swal.fire("Cancelled", "Adding Schedule Cancelled:)", "error");
-            }
+            position: "center",
+            icon: "error",
+            title:
+              "The time you choose is already given to the employee or the grade that you choose!",
+            showConfirmButton: false,
+            timer: 1500,
           });
         } else {
           addSched();
@@ -1586,7 +1601,7 @@ $(document).ready(function () {
       let newData = JSON.parse(data);
       newData.forEach((custom, i) => {
         $("#school_logo").attr("src", `../views/assets/img/${custom.logo}`);
-        $("#school_logo2").attr("src", `../views/assets/img/${custom.logo}`);
+        // $("#school_logo2").attr("src", `../views/assets/img/${custom.logo}`);
 
         $("#school_name").html(custom.school_name);
         $("#school_address").html(custom.school_address);

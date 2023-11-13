@@ -49,7 +49,7 @@ if ($role_id == 0 || $role_id == 1) {
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class=" table table-bordered  table-striped table-success ">
+                        <table class=" table table-bordered  table-striped table-success " id="data_table">
                             <thead class=" bg-green">
                                 <tr>
                                     <th scope="col">#</th>

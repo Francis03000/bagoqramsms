@@ -65,7 +65,7 @@ if ($role_id == 0 || $role_id == 1) {
 
 
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="data_table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

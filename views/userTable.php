@@ -75,7 +75,7 @@ if ($role_id == 0 || $role_id == 1) {
 
                     <div class="table-responsive">
 
-                        <table class=" table  table-striped table-success " id="excel_table">
+                        <table class=" table  table-striped table-success " id="data_table">
                             <thead class=" bg-green">
                                 <tr>
                                     <th scope="col">#</th>
