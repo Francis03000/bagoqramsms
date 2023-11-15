@@ -2,6 +2,15 @@
     .hover-pointer:hover {
         cursor: pointer;
     }
+
+    input[type=checkbox] {
+        -ms-transform: scale(2);
+        -moz-transform: scale(2);
+        -webkit-transform: scale(2);
+        -o-transform: scale(2);
+        transform: scale(2);
+        padding: 30px;
+    }
 </style>
 
 <div class="modal fade" id="modalMain" tabindex="-1" aria-labelledby="modalMainLabel" aria-hidden="true">
@@ -79,32 +88,33 @@
 
 
 
+                    <div class="row">
+                        <div class="form-group col-6">
 
-                    <div class="form-group col-12 mx-auto d-block">
+                            <label class="col-form-label" style="padding-right: 1rem;">Select Day</label>
+                            <br>
+                            <div class="form-check form-check-inline" style="font-size: 110%; display: inline;">
 
-                        <label class="col-form-label" style="padding-right:100px">Select Day</label>
-                        <div class="form-check form-check-inline">
+                                <?php
+                                $days = [
+                                    0 => 'Monday',
+                                    1 => 'Tuesday',
+                                    2 => 'Wednesday',
+                                    3 => 'Thursday',
+                                    4 => 'Friday',
+                                ];
 
-                            <?php
-                            $days = [
-                                0 => 'Monday',
-                                1 => 'Tuesday',
-                                2 => 'Wednesday',
-                                3 => 'Thursday',
-                                4 => 'Friday',
-                            ];
-
-                            foreach ($days as $value => $day) {
-                                echo "<input class='form-check-input' type='checkbox' name='sample_day[]' value='$value' id='sample_day$value'>";
-                                echo "<label class='form-check-label' for='sample_day$value'>$day</label>";
-                            }
-                            ?>
-                        </div>
-
+                                foreach ($days as $value => $day) {
+                                    echo "<input class='form-check-input ml-4' type='checkbox' name='sample_day[]' value='$value' id='sample_day$value'>&nbsp;";
+                                    echo "<label class='form-check-label' for='sample_day$value'>$day</label>";
+                                }
+                                ?>
+                            </div>
 
 
 
-                        <!-- <label class="col-form-label">Day</label>
+
+                            <!-- <label class="col-form-label">Day</label>
                             <select class="form-control" name="sample_day" id="sample_day"
                                 style="border-color: #606060">
                                 <option value="">Choose Day</option>
@@ -117,12 +127,14 @@
 
 
                             </select> -->
-                    </div>
+                        </div>
 
-                    <div class="form-group col-6 mx-auto d-block">
-                        <label class="col-form-label " id="subject_label">Subjects</label>
-                        <select class="form-control" name="subject_id" id="subject_id" style="border-color: #606060">
-                        </select>
+                        <div class="form-group col-6 mx-auto d-block">
+                            <label class="col-form-label " id="subject_label">Subjects</label>
+                            <select class="form-control" name="subject_id" id="subject_id"
+                                style="border-color: #606060">
+                            </select>
+                        </div>
                     </div>
                     <div class="row">
 

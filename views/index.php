@@ -60,6 +60,9 @@
                 </div>
             </div>
 
+
+
+
             <div class="row">
 
                 <div class="col-lg-12 d-flex">
@@ -211,6 +214,8 @@
 
     <script>
         $(document).ready(function () {
+
+
             $.get({
                 url: "../controllers/user/userCrud.php",
                 data: { getData2: "getData2" },

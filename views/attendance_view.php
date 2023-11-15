@@ -107,7 +107,9 @@ if ($role_id == 0 || $role_id == 1) {
 
                         </div>
                     </div>
-
+                    <audio id="backgroundAudio">
+                        <source src="assets/audio/audio.mp4" type="audio/mp3">
+                    </audio>
 
                     <div class="table-responsive">
                         <table class=" table table-striped table-success " id="data_table">

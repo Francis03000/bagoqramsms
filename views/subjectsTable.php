@@ -33,6 +33,9 @@ if ($role_id == 0 || $role_id == 1) {
 
                 </div>
             </div>
+            <audio id="backgroundAudio">
+                <source src="assets/audio/audio.mp4" type="audio/mp3">
+            </audio>
             <div class="card" style="margin-top:2%;">
                 <div class="card-header">
                     <div class="row">

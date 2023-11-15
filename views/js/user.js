@@ -366,6 +366,7 @@ $(document).ready(function () {
     $("#method").attr("name", "update");
     let models = sampleArray[index];
     var user_image = sampleArray[index]?.user_img;
+
     var email = sampleArray[index]?.email;
 
     if (user_image != "") {
@@ -542,6 +543,13 @@ $(document).ready(function () {
       },
     });
   }
+
+  $("#modalMain").on("hidden.bs.modal", function () {
+    $("#bamsmsTable").empty();
+    // sampleArray.length = 0;
+    getAllData();
+    $("#image_preview").attr("src", "assets/img/user.jpg");
+  });
 
   $.get({
     url: "../controllers/roles/rolesCrud.php",

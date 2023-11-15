@@ -72,6 +72,26 @@ $(document).ready(function () {
   });
 
   $("#btn-mul").click(function () {
+    var isValid = true;
+    $("#modalMainForm")
+      .find("input:not(:hidden), select")
+      .each(function () {
+        if ($(this).val() === "") {
+          isValid = false;
+          return false;
+        }
+      });
+
+    if (!isValid) {
+      Swal.fire({
+        position: "text-center",
+        icon: "warning",
+        title: "Please fill in all required fields.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
     let modalMainForm = $("#modalMainForm").serializeArray();
     $.post({
       url: "../controllers/subjects/subjectsCrud.php",
@@ -81,8 +101,21 @@ $(document).ready(function () {
           $("#modalMainForm").trigger("reset");
           $("#modalMain").modal("hide");
           $("#bamsmsTable").empty();
-          // sampleArray.empty();
+          Swal.fire({
+            position: "text-center",
+            icon: "success",
+            title: "Data Added Successfuly",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           getAllData();
+        } else if (data.message === "1062") {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Permission already exist",
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
         }
       },
     });

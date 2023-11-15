@@ -1,4 +1,8 @@
 $(document).ready(function () {
+  function playAudio() {
+    var audio = $("#backgroundAudio")[0];
+    audio.play();
+  }
   var currentDate2 = new Date();
   var currentHour = currentDate2.getHours();
   var currentMinute = currentDate2.getMinutes();
@@ -174,6 +178,8 @@ $(document).ready(function () {
                       });
 
                       setTimeout(() => {
+                        playAudio();
+
                         swal
                           .fire({
                             icon: "success",
