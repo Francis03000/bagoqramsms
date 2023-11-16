@@ -3,6 +3,11 @@ $(document).ready(function () {
     var audio = $("#backgroundAudio")[0];
     audio.play();
   }
+
+  function playAudio2() {
+    var audio2 = $("#backgroundAudio2")[0];
+    audio2.play();
+  }
   var currentDate2 = new Date();
   var currentHour = currentDate2.getHours();
   var currentMinute = currentDate2.getMinutes();
@@ -61,9 +66,9 @@ $(document).ready(function () {
     });
   }
 
-  if (currentHour >= 18) {
-    done();
-  }
+  // if (currentHour >= 18) {
+  //   done();
+  // }
   $("#preview").hide();
 
   let scanner = new Instascan.Scanner({
@@ -222,6 +227,7 @@ $(document).ready(function () {
                   if (currentHour >= 11 && currentHour <= 14) {
                     if ($time_outa == "") {
                       setTimeout(() => {
+                        playAudio2();
                         swal
                           .fire({
                             icon: "success",
@@ -252,6 +258,7 @@ $(document).ready(function () {
                     } else {
                       if ($time_ina == "") {
                         setTimeout(() => {
+                          playAudio();
                           swal
                             .fire({
                               icon: "success",
@@ -368,6 +375,7 @@ $(document).ready(function () {
                             });
 
                             setTimeout(() => {
+                              playAudio2();
                               swal
                                 .fire({
                                   icon: "success",

@@ -55,9 +55,9 @@ $(document).ready(function () {
     });
   }
 
-  if (currentHour >= 18) {
-    done();
-  }
+  // if (currentHour >= 18) {
+  //   done();
+  // }
   $("#preview").hide();
   $("#done").hide();
 
