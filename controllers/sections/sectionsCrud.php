@@ -25,24 +25,25 @@ if (isset($_GET['getData2'])) {
     if (isset($_POST['addNew'])) {
         $section_name = $_POST["section_name"];
 
-        $DBCRUDAPI->insert('sections', ['section_name' => $section_name]);
+        try {
+            $DBCRUDAPI->insert('sections', ['section_name' => $section_name]);
 
-        if ($DBCRUDAPI) {
             echo json_encode(array("success" => true));
-        } else {
-            echo json_encode(array("success" => false));
-        }
+        } catch (Exception $e) {
 
+            echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        }
     } else if (isset($_POST['update'])) {
 
         $id = $_POST["id"];
         $section_name = $_POST["section_name"];
 
-        $DBCRUDAPI->update('sections', ['section_name' => $section_name], "id='$id'");
-        if ($DBCRUDAPI) {
+        try {
+            $DBCRUDAPI->update('sections', ['section_name' => $section_name], "id='$id'");
             echo json_encode(array("success" => true));
-        } else {
-            echo json_encode(array("success" => false));
+        } catch (Exception $e) {
+
+            echo json_encode(array("success" => false, "error" => $e->getMessage()));
         }
     } else if (isset($_POST['delete'])) {
 
