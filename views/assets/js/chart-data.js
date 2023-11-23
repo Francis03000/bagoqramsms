@@ -13,7 +13,6 @@ $(document).ready(function () {
       let newData = JSON.parse(data);
       newData.forEach((entry, i) => {
         presentData.push(entry.present_count);
-        // alert(entry.present_count);
         absentData.push(entry.absent_count);
         incompleteData.push(entry.incomplete_count);
         monthData.push(entry.month);
@@ -28,7 +27,6 @@ $(document).ready(function () {
         monthData2.push(formattedMonth);
       });
 
-      // Create the final formatted data structure
       const formattedData = [
         { name: "Present", data: presentData },
         { name: "Absent", data: absentData },

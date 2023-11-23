@@ -40,7 +40,7 @@
                         </div>
 
 
-                        <div class="form-group col-6">
+                        <div class="form-group col-6 ">
                             <label class="col-form-label">Grade/Year Name</label>
                             <select class="form-control" name="yearlevel_name" id="yearlevel_name"
                                 style="border-color: #606060">
@@ -59,7 +59,7 @@
                     <div class="row">
 
 
-                        <div class="form-group col-6">
+                        <div class="form-group col-6 mx-auto d-block">
                             <label class="col-form-label">Room</label>
                             <select class="form-control" name="designated_room_id" id="designated_room_id"
                                 style="border-color: #606060">

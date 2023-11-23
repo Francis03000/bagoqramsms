@@ -65,13 +65,12 @@ if (isset($_GET['getData'])) {
     if (isset($_POST['addNew'])) {
         $subject_name = $_POST["subject_name"];
 
-
-        $DBCRUDAPI->insert('subjects', ['subject_name' => $subject_name]);
-
-        if ($DBCRUDAPI) {
+        try {
+            $DBCRUDAPI->insert('subjects', ['subject_name' => $subject_name]);
             echo json_encode(array("success" => true));
-        } else {
-            echo json_encode(array("success" => false));
+        } catch (Exception $e) {
+
+            echo json_encode(array("success" => false, "error" => $e->getMessage()));
         }
 
     } else if (isset($_POST['update'])) {
@@ -79,11 +78,12 @@ if (isset($_GET['getData'])) {
         $id = $_POST["id"];
         $subject_name = $_POST["subject_name"];
 
-        $DBCRUDAPI->update('subjects', ['subject_name' => $subject_name,], "id='$id'");
-        if ($DBCRUDAPI) {
+        try {
+            $DBCRUDAPI->update('subjects', ['subject_name' => $subject_name,], "id='$id'");
             echo json_encode(array("success" => true));
-        } else {
-            echo json_encode(array("success" => false));
+        } catch (Exception $e) {
+
+            echo json_encode(array("success" => false, "error" => $e->getMessage()));
         }
     } else if (isset($_POST['delete'])) {
 

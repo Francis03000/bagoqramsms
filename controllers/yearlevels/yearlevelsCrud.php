@@ -41,13 +41,14 @@ if (isset($_GET['getData'])) {
         $yearlevel_name = $_POST["yearlevel_name"];
         $designated_room_id = $_POST["designated_room_id"];
 
-        $DBCRUDAPI->insert('yearlevels', ['section_id' => $section_id, 'yearlevel_name' => $yearlevel_name, 'designated_room_id' => $designated_room_id,]);
-
-        if ($DBCRUDAPI) {
+        try {
+            $DBCRUDAPI->insert('yearlevels', ['section_id' => $section_id, 'yearlevel_name' => $yearlevel_name, 'designated_room_id' => $designated_room_id,]);
             echo json_encode(array("success" => true));
-        } else {
-            echo json_encode(array("success" => false));
+        } catch (Exception $e) {
+
+            echo json_encode(array("success" => false, "error" => $e->getMessage()));
         }
+
 
     } else if (isset($_POST['update'])) {
 
@@ -57,11 +58,12 @@ if (isset($_GET['getData'])) {
         $yearlevel_name = $_POST["yearlevel_name"];
         $designated_room_id = $_POST["designated_room_id"];
 
-        $DBCRUDAPI->update('yearlevels', ['section_id' => $section_id, 'yearlevel_name' => $yearlevel_name, 'designated_room_id' => $designated_room_id,], "id='$id'");
-        if ($DBCRUDAPI) {
+        try {
+            $DBCRUDAPI->update('yearlevels', ['section_id' => $section_id, 'yearlevel_name' => $yearlevel_name, 'designated_room_id' => $designated_room_id,], "id='$id'");
             echo json_encode(array("success" => true));
-        } else {
-            echo json_encode(array("success" => false));
+        } catch (Exception $e) {
+
+            echo json_encode(array("success" => false, "error" => $e->getMessage()));
         }
     } else if (isset($_POST['delete'])) {
 

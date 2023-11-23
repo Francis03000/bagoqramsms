@@ -1,5 +1,14 @@
 import fetch from "../modules/auth.js";
 $(document).ready(function () {
+  var msg = new SpeechSynthesisUtterance();
+  var voices = window.speechSynthesis.getVoices();
+  msg.voice = voices[5];
+  msg.volume = 1; // From 0 to 1
+  msg.rate = 1; // From 0.1 to 10
+  msg.pitch = 2; // From 0 to 2
+  msg.text = "Welcome to login page";
+  window.speechSynthesis.speak(msg);
+
   let loginAttempts = 0;
   let countdownTimer = localStorage.getItem("countdownTimer");
 
@@ -34,6 +43,19 @@ $(document).ready(function () {
       success: function (data) {
         var datas = JSON.parse(data);
         if (datas.length > 0) {
+          var msg = new SpeechSynthesisUtterance();
+          var voices = window.speechSynthesis.getVoices();
+          msg.voice = voices[0];
+          msg.rate = 1; // From 0.1 to 10
+          msg.pitch = 1; // From 0 to 2
+          msg.text =
+            "Welcome" +
+            datas[0].fname +
+            " " +
+            datas[0].mname +
+            " " +
+            datas[0].lname;
+          window.speechSynthesis.speak(msg);
           if (datas[0].id > 1) {
             Swal.fire({
               icon: "success",

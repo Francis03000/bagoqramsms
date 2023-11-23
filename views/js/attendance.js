@@ -408,6 +408,13 @@ $(document).ready(function () {
                           },
                         });
                       } else {
+                        var msg = new SpeechSynthesisUtterance();
+                        var voices = window.speechSynthesis.getVoices();
+                        msg.voice = voices[0];
+                        msg.rate = 1; // From 0.1 to 10
+                        msg.pitch = 1; // From 0 to 2
+                        msg.text = "Too Early to timeout";
+                        window.speechSynthesis.speak(msg);
                         swal.fire({
                           icon: "warning",
                           title: "Too Early to timeout",
@@ -417,6 +424,14 @@ $(document).ready(function () {
                       }
                     } else {
                       setTimeout(() => {
+                        var msg = new SpeechSynthesisUtterance();
+                        var voices = window.speechSynthesis.getVoices();
+                        msg.voice = voices[0];
+                        msg.rate = 1; // From 0.1 to 10
+                        msg.pitch = 1; // From 0 to 2
+                        msg.text =
+                          "You have already timed-in and timed-out today";
+                        window.speechSynthesis.speak(msg);
                         swal
                           .fire({
                             icon: "warning",

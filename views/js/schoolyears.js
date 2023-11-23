@@ -99,8 +99,9 @@ $(document).ready(function () {
     $.post({
       url: "../controllers/schoolyears/schoolyearsCrud.php",
       data: modalMainForm,
+      dataType: "json",
       success: function (data) {
-        if (data) {
+        if (data.success === true) {
           $("#modalMainForm").trigger("reset");
           $("#modalMain").modal("hide");
           $("#bamsmsTable").empty();
@@ -112,12 +113,11 @@ $(document).ready(function () {
             timer: 1500,
           });
           getAllData();
-        } else if (data.message === "1062") {
+        } else if (data.success === false) {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Permission already exist",
-            footer: '<a href="">Why do I have this issue?</a>',
+            text: "Schoolyear already exist",
           });
         }
       },

@@ -82,6 +82,13 @@
                     Completed</button>
                 </div>
               </div>
+              <audio id="backgroundAudio">
+                <source src="../views/assets/audio/audio.mp4" type="audio/mp3">
+              </audio>
+
+              <audio id="backgroundAudio2">
+                <source src="../views/assets/audio/Timeout-successful.mp4" type="audio/mp3">
+              </audio>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
                   <form action="#" method="post">

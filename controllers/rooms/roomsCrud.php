@@ -28,12 +28,12 @@ if (isset($_GET['getData'])) {
         $room_number = $_POST["room_number"];
         $room_name = $_POST["room_name"];
 
-        $DBCRUDAPI->insert('rooms', ['room_number' => $room_number, 'room_name' => $room_name]);
-
-        if ($DBCRUDAPI) {
+        try {
+            $DBCRUDAPI->insert('rooms', ['room_number' => $room_number, 'room_name' => $room_name]);
             echo json_encode(array("success" => true));
-        } else {
-            echo json_encode(array("success" => false));
+        } catch (Exception $e) {
+
+            echo json_encode(array("success" => false, "error" => $e->getMessage()));
         }
 
     } else if (isset($_POST['update'])) {
@@ -42,11 +42,12 @@ if (isset($_GET['getData'])) {
         $room_number = $_POST["room_number"];
         $room_name = $_POST["room_name"];
 
-        $DBCRUDAPI->update('rooms', ['room_number' => $room_number, 'room_name' => $room_name], "id='$id'");
-        if ($DBCRUDAPI) {
+        try {
+            $DBCRUDAPI->update('rooms', ['room_number' => $room_number, 'room_name' => $room_name], "id='$id'");
             echo json_encode(array("success" => true));
-        } else {
-            echo json_encode(array("success" => false));
+        } catch (Exception $e) {
+
+            echo json_encode(array("success" => false, "error" => $e->getMessage()));
         }
     } else if (isset($_POST['delete'])) {
 
