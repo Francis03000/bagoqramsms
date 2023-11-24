@@ -23,39 +23,39 @@
 
 
                     <div class="row">
-                        <div class="form-group col-4">
-                            <div class="form-group text-center">
+                        <div class="form-group mx-auto">
 
-                                <div class="rounded-circle img-fluid border border-secondary "
-                                    style="width: 150px; height: 150px; overflow: hidden;">
-                                    <img src="assets/img/user.jpg" id="image_preview" alt="Selected Image"
-                                        class="img-fluid" style="width: 100%; height: 100%;">
-                                </div>
-                                <div class="input-group">
-                                    <label for="user_img" class="input-group-addon mx-4" style="cursor: pointer;">
-                                        <i class="fa fa-camera" aria-hidden="true">Choose Image</i>
-                                    </label>
-                                    <input type="file" id="user_img" name="user_img" accept="image/*"
-                                        style="display: none;">
-                                    <input type="hidden" id="update_img" name="update_img">
-
-                                </div>
+                            <div class="rounded-circle img-fluid border border-secondary "
+                                style="width: 150px; height: 150px; overflow: hidden;">
+                                <img src="assets/img/user.jpg" id="image_preview" alt="Selected Image" class="img-fluid"
+                                    style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="input-group">
+                                <label for="user_img" class="input-group mx-4" style="cursor: pointer;">
+                                    <i class="fa fa-camera" aria-hidden="true">Choose Image</i>
+                                </label>
+                                <input type="file" id="user_img" name="user_img" accept="image/*"
+                                    style="display: none;">
+                                <input type="hidden" id="update_img" name="update_img">
 
                             </div>
+
                         </div>
+                    </div>
 
-
-                        <div class="form-group col-4">
+                    <div class="row">
+                        <div class="form-group col-6">
                             <label class="col-form-label">First Name</label>
                             <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name"
                                 style="border-color: #606060">
                         </div>
-                        <div class="form-group col-4">
+                        <div class="form-group col-6">
                             <label class="col-form-label">Middle Name</label>
                             <input type="text" class="form-control" id="mname" name="mname" placeholder="Middle Name"
                                 style="border-color: #606060">
                         </div>
                     </div>
+
 
                     <div class="row">
                         <div class="form-group col-6">
