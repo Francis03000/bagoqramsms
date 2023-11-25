@@ -33,10 +33,10 @@ $(document).ready(function () {
             class: "text-wrap",
             html: schoolyears.school_year,
           }).appendTo(tableRow);
-          $("<td>", {
-            class: "text-wrap",
-            html: schoolyears.batch_name,
-          }).appendTo(tableRow);
+          // $("<td>", {
+          //   class: "text-wrap",
+          //   html: schoolyears.batch_name,
+          // }).appendTo(tableRow);
 
           // buttons action
           let tableData = $("<td>", { class: "text-wrap" });

@@ -52,7 +52,7 @@ if ($role_id == 0 || $role_id == 1) {
                                 <tr>
                                     <th scope="col"></th>
                                     <th scope="col">School Year</th>
-                                    <th scope="col">Batch Name</th>
+                                    <!-- <th scope="col">Batch Name</th> -->
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>

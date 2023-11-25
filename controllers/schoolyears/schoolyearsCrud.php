@@ -14,11 +14,13 @@ if (isset($_GET['getData'])) {
     echo json_encode($res);
 } else {
     if (isset($_POST['addNew'])) {
-        $school_year = $_POST["school_year"];
-        $batch_name = $_POST["batch_name"];
+        $school_year_from = $_POST["school_year_from"];
+        $school_year_to = $_POST["school_year_to"];
+        $school_year = $school_year_from . "-" . $school_year_to;
+
 
         try {
-            $DBCRUDAPI->insert('schoolyears', ['school_year' => $school_year, 'batch_name' => $batch_name]);
+            $DBCRUDAPI->insert('schoolyears', ['school_year' => $school_year]);
             echo json_encode(array("success" => true));
         } catch (Exception $e) {
 
@@ -29,10 +31,9 @@ if (isset($_GET['getData'])) {
 
         $id = $_POST["id"];
         $school_year = $_POST["school_year"];
-        $batch_name = $_POST["batch_name"];
 
         try {
-            $DBCRUDAPI->update('schoolyears', ['school_year' => $school_year, 'batch_name' => $batch_name], "id='$id'");
+            $DBCRUDAPI->update('schoolyears', ['school_year' => $school_year], "id='$id'");
             echo json_encode(array("success" => true));
         } catch (Exception $e) {
 

@@ -12,15 +12,20 @@
                     <input type="hidden" id="method" name="update">
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
-                        <label class="col-form-label">School Year</label>
-                        <input type="text" class="form-control" id="school_year" name="school_year"
+                        <label class="col-form-label">School Year From</label>
+                        <input type="text" class="form-control" id="school_year_from" name="school_year_from"
                             style="border-color: #606060">
                     </div>
                     <div class="form-group">
+                        <label class="col-form-label">School Year To</label>
+                        <input type="text" class="form-control" id="school_year_to" name="school_year_to"
+                            style="border-color: #606060">
+                    </div>
+                    <!-- <div class="form-group">
                         <label class="col-form-label">Batch Name</label>
                         <input type="text" class="form-control" id="batch_name" name="batch_name"
                             style="border-color: #606060">
-                    </div>
+                    </div> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
