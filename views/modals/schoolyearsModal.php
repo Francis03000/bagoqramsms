@@ -14,11 +14,13 @@
                     <div class="form-group">
                         <label class="col-form-label">School Year From</label>
                         <input type="text" class="form-control" id="school_year_from" name="school_year_from"
+                            oninput="validateInput(this, 'numbers')" pattern="[0-9]*" title="Please input numbers only"
                             style="border-color: #606060">
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">School Year To</label>
                         <input type="text" class="form-control" id="school_year_to" name="school_year_to"
+                            oninput="validateInput(this, 'numbers')" pattern="[0-9]*" title="Please input numbers only"
                             style="border-color: #606060">
                     </div>
                     <!-- <div class="form-group">
@@ -35,3 +37,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    function validateInput(input, validationType) {
+        if (validationType === 'letters') {
+            input.value = input.value.replace(/[^A-Za-z]/g, ''); // Remove any non-letter characters
+        } else if (validationType === 'numbers') {
+            input.value = input.value.replace(/\D/g, ''); // Remove any non-digit characters
+        }
+    }
+
+
+
+
+    $("#school_year_from").change(function () {
+        $("#school_year_to").empty();
+        var school_year_from = $(this).val();
+
+        var school_year_to_val = parseInt(school_year_from) + 1;
+
+        $("#school_year_to").val(school_year_to_val);
+
+        $("#school_year_to").attr("readonly", "readonly");
+    });
+</script>

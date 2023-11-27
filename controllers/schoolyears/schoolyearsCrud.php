@@ -13,6 +13,7 @@ if (isset($_GET['getData'])) {
     }
     echo json_encode($res);
 } else {
+    
     if (isset($_POST['addNew'])) {
         $school_year_from = $_POST["school_year_from"];
         $school_year_to = $_POST["school_year_to"];

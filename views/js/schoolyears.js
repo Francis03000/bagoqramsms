@@ -71,6 +71,8 @@ $(document).ready(function () {
     $("#modalMainForm").trigger("reset");
     $("#modalMainLabel").html("Add Schoolyear");
     $("#modalMain").modal("show");
+    $("#school_year_to").removeAttr("readonly");
+
     $("#method").attr("name", "addNew");
   });
 
@@ -125,10 +127,16 @@ $(document).ready(function () {
   });
 
   function update(index) {
+    $("#school_year_to").attr("readonly", "readonly");
     $("#modalMain").modal("show");
     $("#modalMainLabel").html("Update Schoolyear");
     $("#method").attr("name", "update");
     let models = sampleArray[index];
+    $school_year = sampleArray[index]?.school_year;
+    const [school_year_from, school_year_to] = $school_year.split("-");
+    $("#school_year_from").val(school_year_from);
+    $("#school_year_to").val(school_year_to);
+
     Object.keys(models).map((key) => {
       $(`[name='${key}']`).val(models[key]).attr("disabled", false);
     });
