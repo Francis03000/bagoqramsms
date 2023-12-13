@@ -2,6 +2,9 @@
     #schedTime td {}
 
 
+    /* .parent_div {
+        position: absolute;
+    } */
 
     .subject_name {
         display: block;
@@ -25,6 +28,7 @@
         #printR {
             -webkit-print-color-adjust: exact;
         }
+
 
     }
 </style>

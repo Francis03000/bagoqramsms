@@ -14,6 +14,16 @@ if (isset($_GET['getData'])) {
         $res[] = $datass;
     }
     echo json_encode($res);
+}
+if (isset($_GET['getData2'])) {
+
+    $DBCRUDAPI->selectleftjoin("users", "roles", "id", "role_id", ["users.*", "roles.display_name"], "users.role_id != 1 AND users.role_id != 0 AND status = 'active' ");
+    $data = $DBCRUDAPI->sql;
+    $res = array();
+    while ($datass = mysqli_fetch_assoc($data)) {
+        $res[] = $datass;
+    }
+    echo json_encode($res);
 } else if (isset($_GET['getDataTeach'])) {
     $id = $_GET['id'];
     $DBCRUDAPI->select("users", "*", "id = '$id'");

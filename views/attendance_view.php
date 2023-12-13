@@ -76,6 +76,8 @@ if ($role_id == 0 || $role_id == 1) {
                             <h5 class="table-header-color page-title">Attendance Log</h5>
                         </div>
                         <div class="col">
+                            <button style="float:right;" type="button" class="btn btn-primary" id="add-new"> <i
+                                    class="fas fa-plus"></i> Add</button>
                             <button style="float:right;" type="button" class="btn btn-primary" id="done"> <i
                                     class="fas fa-check"></i>Attendance Completed</button>
 
@@ -136,7 +138,7 @@ if ($role_id == 0 || $role_id == 1) {
                         </table>
 
                     </div>
-                    <?php include('modals/attendance_logModal.php'); ?>
+                    <?php include('modals/attendanceModal.php'); ?>
                 </div>
             </div>
         </div>

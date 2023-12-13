@@ -14,6 +14,7 @@
                     <div class="form-group">
                         <label class="col-form-label">Room Number</label>
                         <input type="in" class="form-control" id="room_number" name="room_number"
+                            oninput="validateInput(this, 'numbers')" pattern="[0-9]*" title="Please input numbers only"
                             style="border-color: #606060">
                     </div>
                     <div class="form-group">
@@ -30,3 +31,15 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    function validateInput(input, validationType) {
+        if (validationType === 'letters') {
+            input.value = input.value.replace(/[^A-Za-z]/g, ''); // Remove any non-letter characters
+        } else if (validationType === 'numbers') {
+            input.value = input.value.replace(/\D/g, ''); // Remove any non-digit characters
+        }
+    }
+</script>

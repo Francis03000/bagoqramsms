@@ -65,7 +65,88 @@ $(document).ready(function () {
       },
     });
   }
+  $("#user_id").empty();
+  let opts1 = $("#user_id");
+  opts1.append("<option value='0'>Choose Employee</option>");
+  $.get({
+    url: "../controllers/teachers/teachersCrud.php",
+    data: { getData2: "getData2" },
+    contentType: "application/json",
+    success: function (data) {
+      let newdatadp = JSON.parse(data);
+      newdatadp.forEach((teacher) => {
+        opts1.append(
+          "<option value=" +
+            teacher.id +
+            ">" +
+            teacher.fname +
+            " " +
+            teacher.mname +
+            " " +
+            teacher.lname +
+            "</option>"
+        );
+      });
+    },
+  });
 
+  $("#add-new").click(function () {
+    $("#modalMainForm").trigger("reset");
+    $("#modalMainLabel").html("Add Attendance");
+    $("#modalMain").modal("show");
+    $("#method").attr("name", "addNew1");
+  });
+
+  $("#btn-mul").click(function () {
+    var isValid = true;
+    $("#modalMainForm")
+      .find("input:not(:hidden), select")
+      .each(function () {
+        if ($(this).val() === "") {
+          isValid = false;
+          return false;
+        }
+      });
+
+    if (!isValid) {
+      Swal.fire({
+        position: "text-center",
+        icon: "warning",
+        title: "Please fill in all required fields.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+    let modalMainForm = $("#modalMainForm").serializeArray();
+    modalMainForm.push({ name: "attendance_date", value: formattedDate });
+    $.post({
+      url: "../controllers/attendance/attendanceCrud.php",
+      data: modalMainForm,
+      dataType: "json",
+      success: function (data) {
+        if (data.success === true) {
+          $("#modalMainForm").trigger("reset");
+          $("#modalMain").modal("hide");
+          $("#bamsmsTable").empty();
+          Swal.fire({
+            position: "text-center",
+            icon: "success",
+            title: "Data Added Successfuly",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          getAllData();
+        } else if (data.success === false) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Subject already exist",
+          });
+        }
+      },
+    });
+  });
   // if (currentHour >= 18) {
   //   done();
   // }
@@ -601,29 +682,29 @@ $(document).ready(function () {
     $("#data_table").DataTable();
   }
 
-  $("#add-new").click(function () {
-    $("#modalMainForm").trigger("reset");
-    $("#modalMainLabel").html("Add Guard");
-    $("#modalMain").modal("show");
-    $("#method").attr("name", "addNew");
-  });
+  // $("#add-new").click(function () {
+  //   $("#modalMainForm").trigger("reset");
+  //   $("#modalMainLabel").html("Add Guard");
+  //   $("#modalMain").modal("show");
+  //   $("#method").attr("name", "addNew");
+  // });
 
-  $("#btn-mul").click(function () {
-    let modalMainForm = $("#modalMainForm").serializeArray();
-    $.post({
-      url: "../controllers/attendance_log/attendance_logCrud.php",
-      data: modalMainForm,
-      success: function (data) {
-        if (data) {
-          $("#modalMainForm").trigger("reset");
-          $("#modalMain").modal("hide");
-          $("#bamsmsTable").empty();
-          // sampleArray.empty();
-          getAllData();
-        }
-      },
-    });
-  });
+  // $("#btn-mul").click(function () {
+  //   let modalMainForm = $("#modalMainForm").serializeArray();
+  //   $.post({
+  //     url: "../controllers/attendance_log/attendance_logCrud.php",
+  //     data: modalMainForm,
+  //     success: function (data) {
+  //       if (data) {
+  //         $("#modalMainForm").trigger("reset");
+  //         $("#modalMain").modal("hide");
+  //         $("#bamsmsTable").empty();
+  //         // sampleArray.empty();
+  //         getAllData();
+  //       }
+  //     },
+  //   });
+  // });
 
   function update(index) {
     $("#modalMain").modal("show");

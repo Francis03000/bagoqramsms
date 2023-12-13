@@ -68,6 +68,24 @@ if (isset($_GET['getData'])) {
             echo json_encode(array("success" => false));
         }
 
+    }
+    if (isset($_POST['addNew1'])) {
+        $user_id = $_POST["user_id"];
+        $time_in = $_POST["time_in"];
+        $time_out2 = $_POST["time_out2"];
+        $time_in2 = $_POST["time_in2"];
+        $time_out = $_POST["time_out"];
+
+        $attendance_date = $_POST["attendance_date"];
+
+        $DBCRUDAPI->insert('attendance_log', ['user_id' => $user_id, 'time_in' => $time_in, 'time_out2' => $time_out2, 'time_in2' => $time_in2, 'time_out' => $time_out, 'status' => 'Present', 'attendance_date' => $attendance_date]);
+
+        if ($DBCRUDAPI) {
+            echo json_encode(array("success" => true));
+        } else {
+            echo json_encode(array("success" => false));
+        }
+
     } else if (isset($_POST['update'])) {
 
         $time_out = $_POST["time_out"];

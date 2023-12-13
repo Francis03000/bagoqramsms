@@ -1323,6 +1323,8 @@ $(document).ready(function () {
         }
 
         if (time === startHour) {
+          const parentDiv = document.createElement("div");
+          parentDiv.classList.add("parent_div");
           const courseCodeDiv = document.createElement("div");
           courseCodeDiv.classList.add("subject_name");
           if (courseCode == null) {
@@ -1330,12 +1332,14 @@ $(document).ready(function () {
           } else {
             courseCodeDiv.textContent = courseCode;
           }
-          cell.appendChild(courseCodeDiv);
+          parentDiv.appendChild(courseCodeDiv);
 
           const yearLevelNameDiv = document.createElement("div");
           yearLevelNameDiv.classList.add("grade_and_section");
           yearLevelNameDiv.textContent = yearLevelName + " " + sectionName;
-          cell.appendChild(yearLevelNameDiv);
+          parentDiv.appendChild(yearLevelNameDiv);
+
+          cell.appendChild(parentDiv);
 
           // const sectionNameDiv = document.createElement("div");
           // sectionNameDiv.classList.add("grade_and_section");
