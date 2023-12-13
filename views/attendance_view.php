@@ -138,9 +138,11 @@ if ($role_id == 0 || $role_id == 1) {
                         </table>
 
                     </div>
-                    <?php include('modals/attendanceModal.php'); ?>
+                    <?php include('modals/attendance_logModal.php'); ?>
                 </div>
             </div>
+            <?php include('modals/attendanceModal.php'); ?>
+
         </div>
     </div>
 
