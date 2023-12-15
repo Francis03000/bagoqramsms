@@ -37,6 +37,7 @@ if (isset($_GET['getData'])) {
     echo json_encode($res);
 } else {
     if (isset($_POST['addNew'])) {
+
         $user_img = $_FILES['file']['name'];
 
         $role_id = $_POST["role_id"];
@@ -162,10 +163,16 @@ if (isset($_GET['getData'])) {
         }
 
     } else if (isset($_POST['update'])) {
-        $user_img = $_FILES['file']['name'];
-        if (empty($user_img)) {
+
+        if (isset($_POST['user_img'])) {
+            $user_img = $_FILES['file']['name'];
+            if (empty($user_img)) {
+                $user_img = $_POST['update_img'];
+            }
+        } else {
             $user_img = $_POST['update_img'];
         }
+
 
 
         $id = $_POST["id"];

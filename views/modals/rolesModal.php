@@ -16,6 +16,18 @@
                         <input type="text" class="form-control" id="display_name" name="display_name"
                             placeholder="Add Role" style="border-color: #404040">
                     </div>
+
+                    <div class="form-group ">
+                        <label class="col-form-label">Job Description</label>
+
+                        <select class="form-control" name="role_type" id="role_type" style="border-color: #606060">
+                            <option value="">Select Job type</option>
+                            <option value="yes">Teaching </option>
+                            <option value="no">Non teaching </option>
+
+
+                        </select>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

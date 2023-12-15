@@ -17,11 +17,6 @@
 
 
 
-
-
-
-
-
                     <div class="row">
                         <div class="form-group mx-auto">
 
@@ -89,7 +84,7 @@
                             <label class="col-form-label">Job Description</label>
 
                             <select class="form-control" name="teaching" id="teaching" style="border-color: #606060">
-                                <option value="">Select Job Description</option>
+                                <option value="">Select Job Type</option>
                                 <option value="yes">Teaching </option>
                                 <option value="no">Non teaching </option>
 

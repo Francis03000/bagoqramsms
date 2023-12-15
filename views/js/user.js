@@ -368,6 +368,47 @@ $(document).ready(function () {
     var user_image = sampleArray[index]?.user_img;
 
     var email = sampleArray[index]?.email;
+    var role_type = sampleArray[index]?.teaching;
+    var role_id = sampleArray[index]?.role_id;
+
+    $.get({
+      url: "../controllers/roles/rolesCrud.php",
+      data: {
+        getData2: "getData2",
+        role_type: role_type,
+      },
+      success: function (data) {
+        var options = "";
+        var data = JSON.parse(data);
+        if (data.length != 0) {
+          options = '<option value="">Select Role</option>';
+          data.forEach(function (role) {
+            options +=
+              // '<option value="' +
+              // role.id +
+              // '">' +
+              // role.display_name +
+              // "</option>";
+
+              "<option value=" +
+              role.id +
+              (role.id === role_id ? " selected" : "") +
+              ">" +
+              role.display_name +
+              "</option>";
+          });
+        } else {
+          options = '<option value="">No roles available</option>';
+        }
+
+        $("#role_id").html(options);
+      },
+    });
+
+    // $("#role_id option[value=" + sampleArray[index]?.role_id + "]").attr(
+    //   "selected",
+    //   "selected"
+    // );
 
     if (user_image != "") {
       $("#image_preview").attr(
@@ -551,30 +592,35 @@ $(document).ready(function () {
     $("#image_preview").attr("src", "assets/img/user.jpg");
   });
 
-  $.get({
-    url: "../controllers/roles/rolesCrud.php",
-    data: {
-      getData: "getData",
-    },
-    success: function (data) {
-      var options = "";
-      var data = JSON.parse(data);
-      if (data.length != 0) {
-        options = '<option value="">Select Role</option>';
-        data.forEach(function (role) {
-          options +=
-            '<option value="' +
-            role.id +
-            '">' +
-            role.display_name +
-            "</option>";
-        });
-      } else {
-        options = '<option value="">No roles available</option>';
-      }
+  $("#teaching").change(function () {
+    $role_type = $(this).val();
 
-      $("#role_id").html(options);
-    },
+    $.get({
+      url: "../controllers/roles/rolesCrud.php",
+      data: {
+        getData2: "getData2",
+        role_type: $role_type,
+      },
+      success: function (data) {
+        var options = "";
+        var data = JSON.parse(data);
+        if (data.length != 0) {
+          options = '<option value="">Select Role</option>';
+          data.forEach(function (role) {
+            options +=
+              '<option value="' +
+              role.id +
+              '">' +
+              role.display_name +
+              "</option>";
+          });
+        } else {
+          options = '<option value="">No roles available</option>';
+        }
+
+        $("#role_id").html(options);
+      },
+    });
   });
 
   function view(index) {
