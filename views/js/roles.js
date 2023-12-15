@@ -43,12 +43,12 @@ $(document).ready(function () {
             id: "edit",
             html: "",
           }).appendTo(tableData);
-          $("<button>", {
-            class: "btn btn-danger mx-1 far fa-trash-alt ",
-            "data-id": role.id,
-            id: "delete",
-            html: "",
-          }).appendTo(tableData);
+          // $("<button>", {
+          //   class: "btn btn-danger mx-1 far fa-trash-alt ",
+          //   "data-id": role.id,
+          //   id: "delete",
+          //   html: "",
+          // }).appendTo(tableData);
           tableData.appendTo(tableRow);
           table.append(tableRow);
         });

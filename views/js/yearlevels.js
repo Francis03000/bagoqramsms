@@ -27,6 +27,55 @@ $(document).ready(function () {
     },
   });
 
+  $.get({
+    url: "../controllers/sections/sectionsCrud.php",
+    data: {
+      getData: "getData",
+    },
+    success: function (data) {
+      // let newdatadp = JSON.parse(data);
+
+      // for (let index = 0; index < sampleArray.length; index++) {
+      //   for (let index1 = 0; index1 < newdatadp.length; index1++) {
+      //     if (newdatadp[index1].id === sampleArray[index].section_id) {
+      //       newdatadp.splice(index1, 1);
+      //       index1--;
+      //     }
+      //   }
+      // }
+      // options = '<option value="">Select Sections</option>';
+
+      // newdatadp.forEach((section) => {
+      //   options +=
+      //     '<option value="' +
+      //     section.id +
+      //     '">' +
+      //     section.section_name +
+      //     "</option>";
+      // });
+
+      // $("#section_id").html(options);
+
+      var options = "";
+      var data = JSON.parse(data);
+      if (data.length != 0) {
+        options = '<option value="">Select Role</option>';
+        data.forEach(function (section) {
+          options +=
+            '<option value="' +
+            section.id +
+            '">' +
+            section.section_name +
+            "</option>";
+        });
+      } else {
+        options = '<option value="">No sections available</option>';
+      }
+
+      $("#section_id").html(options);
+    },
+  });
+
   let sampleArray = [];
   getAllData();
   function getAllData() {

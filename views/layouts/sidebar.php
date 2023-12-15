@@ -11,17 +11,18 @@
             </div>
             <ul class="sidebar-ul">
                 <li class="menu-title">Menu</li>
-                <li class="<?php if (basename($_SERVER['PHP_SELF']) == 'index') {
-                    echo 'active';
-                } ?>">
-                    <a href="index"><img src="assets/img/sidebar/home.png" alt="icon"
-                            style="width: 28px"><span>Dashboard</span></a>
-                </li>
+
 
                 <?php
                 $role_id = $_SESSION["userRoleId"];
 
                 if ($role_id == 0 || $role_id == 1) { ?>
+                    <li class="<?php if (basename($_SERVER['PHP_SELF']) == 'index') {
+                        echo 'active';
+                    } ?>">
+                        <a href="index"><img src="assets/img/sidebar/home.png" alt="icon"
+                                style="width: 28px"><span>Dashboard</span></a>
+                    </li>
 
                     <?php
                     if ($role_id == 0) { ?>

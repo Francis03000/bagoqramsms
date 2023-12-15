@@ -318,6 +318,16 @@
   // document.oncontextmenu = function () {
   //   return false;
   // };
+
+  // $(document).bind("contextmenu", function (e) {
+  //   e.preventDefault();
+  // });
+
+  // $(document).keydown(function (e) {
+  //   if (e.which === 123) {
+  //     return false;
+  //   }
+  // });
   $(document).mousedown(function (e) {
     if (e.button == 2) {
       return false;

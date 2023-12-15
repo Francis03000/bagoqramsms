@@ -76,8 +76,7 @@ if ($role_id == 0 || $role_id == 1) {
                             <h5 class="table-header-color page-title">Attendance Log</h5>
                         </div>
                         <div class="col">
-                            <button style="float:right;" type="button" class="btn btn-primary" id="add-new"> <i
-                                    class="fas fa-plus"></i> Add</button>
+
                             <button style="float:right;" type="button" class="btn btn-primary" id="done"> <i
                                     class="fas fa-check"></i>Attendance Completed</button>
 
@@ -87,7 +86,12 @@ if ($role_id == 0 || $role_id == 1) {
                     <!-- <input class="form-control mr-sm-2 my-2" type="search" placeholder="Search" aria-label="Search"
                         id="filesearch"> -->
 
-
+                    <div class="row mt-2">
+                        <div class="col">
+                            <button style="float:right;" type="button" class="btn btn-primary" id="add-new"> <i
+                                    class="fas fa-plus"></i> Add</button>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="card-body">

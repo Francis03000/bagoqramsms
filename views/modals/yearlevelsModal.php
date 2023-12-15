@@ -20,21 +20,7 @@
                             <select class="form-control" name="section_id" id="section_id"
                                 style="border-color: #606060">
                                 <option value="">Choose Section</option>
-                                <?php
-                                include_once('../API/DBCRUDAPI.php');
-                                $newAPIFunctions = new DBCRUDAPI();
-                                $newAPIFunctions->select("sections", "*");
-                                $sectionList = $newAPIFunctions->sql;
 
-                                $index = 1;
-                                while ($sections = mysqli_fetch_assoc($sectionList)) {
-                                    ?>
-
-                                    <option value="<?php echo $sections['id']; ?>">
-                                        <?php echo $sections['section_name']; ?>
-                                    </option>
-
-                                <?php } ?>
                             </select>
 
                         </div>

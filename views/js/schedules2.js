@@ -196,7 +196,7 @@ $(document).ready(function () {
                 school_year === parseInt(sampleArray[index].school_year_val)
               ) {
                 newdatadp.splice(index1, 1);
-                index1--; // Decrement the index to account for the removed element
+                index1--;
               }
             }
           }
