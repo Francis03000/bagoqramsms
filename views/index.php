@@ -215,6 +215,17 @@
     <script>
         $(document).ready(function () {
 
+            $("#download_excel").click(function () {
+                var sheetName = prompt("Enter the sheet name:");
+
+                if (sheetName !== null && sheetName.trim() !== "") {
+                    var table2excel = new Table2Excel();
+                    table2excel.export(document.querySelectorAll("#excel_table"), sheetName);
+                }
+
+                $("#modalMain2").modal("hide");
+            });
+
 
             $.get({
                 url: "../controllers/user/userCrud.php",
